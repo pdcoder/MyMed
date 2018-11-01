@@ -7,7 +7,8 @@ import {
   MatExpansionModule,
   MatProgressSpinnerModule,
   MatPaginatorModule,
-  MatDialogModule, MatMenuModule,MatIconModule
+  MatDialogModule, MatMenuModule, MatIconModule,
+  MatFormFieldModule
 } from "@angular/material";
 
 @NgModule({
@@ -21,7 +22,9 @@ import {
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatDialogModule,
-    MatIconModule
+    MatIconModule,
+
+    MatFormFieldModule
   ]
 })
 export class AngularMaterialModule {}
