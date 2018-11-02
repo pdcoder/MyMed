@@ -15,6 +15,7 @@ import {CardlistComponent } from './cardlist/cardlist.component';
 import {ErrorComponent } from './error/error.component';
 import {SignupComponent} from "./signup/signup.component";
 import {LoginComponent} from "./login/login.component";
+import { IndividualMedComponent } from './individual-med/individual-med.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {LoginComponent} from "./login/login.component";
     CardlistComponent,
     LoginComponent,
     SignupComponent,
-    ErrorComponent
+    ErrorComponent,
+    IndividualMedComponent
   ],
   imports: [
     BrowserModule,

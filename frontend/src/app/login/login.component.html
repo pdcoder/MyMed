@@ -2,7 +2,7 @@
 
   <mat-form-field class="formfield" appearance="outline">
     <mat-label>Username/Email</mat-label>
-    <input matInput placeholder="Enter" ngModel #email = "ngModel" required  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" >
+    <input matInput placeholder="Enter" [(ngModel)] ="model.email" #email = "ngModel" required  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" >
 
   </mat-form-field>
   <div *ngIf = "email.errors?.pattern && email.touched">
@@ -11,7 +11,7 @@
   <br />
   <mat-form-field  class="formfield" appearance="outline">
     <mat-label>Password</mat-label>
-    <input matInput ngModel #password="ngModel" minlength="4" placeholder="Enter" required>
+    <input matInput ngModel #password="ngModel" [(ngModel)]="model.password" minlength="4" placeholder="Enter" required>
   </mat-form-field>
 
   <div *ngIf = "password.valid && password.touched">
