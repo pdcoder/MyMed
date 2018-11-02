@@ -1,8 +1,8 @@
 <h2>Get a Glimpse of our collection</h2>
 <mat-card class="mat-elevation-4" *ngFor="let medicine of medicines">
-  <mat-card-title>{{medicine.name}}</mat-card-title>
+  <mat-card-title>{{medicine.name | uppercase}}</mat-card-title>
 <img mat-card-image [src]="cardimage">
 <mat-card-content>
-  This is a card as you can see.
-</mat-card-content>
+<span>{{medicine.price | currency}}</span>
+<p>{{medicine.desc}}</p></mat-card-content>
 </mat-card>

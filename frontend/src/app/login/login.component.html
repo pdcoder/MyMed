@@ -1,8 +1,17 @@
-<form id="form" class="topBefore">
+<form>
 
-  <input id="name" type="text" placeholder="NAME">
-  <input id="email" type="text" placeholder="E-MAIL">
-  <textarea id="message" type="text" placeholder="MESSAGE"></textarea>
-  <input id="submit" type="submit" value="GO!">
+  <mat-form-field class="formfield" appearance="outline">
+    <mat-label>Username/Email *</mat-label>
+    <input matInput placeholder="Enter">
+
+  </mat-form-field>
+  <br />
+  <mat-form-field  class="formfield" appearance="outline">
+    <mat-label>Password</mat-label>
+    <input matInput placeholder="Enter">
+  </mat-form-field>
+<br /> 
+  <button mat-raised-button>Login</button>
+
 
 </form>

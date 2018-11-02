@@ -3,14 +3,15 @@ import { NgModule } from '@angular/core';
 import { AngularMaterialModule } from "./material.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import {RouterModule} from "@angular/router";
+import { HttpClientModule } from '@angular/common/http';
 
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { CarouselComponent } from './carousel/carousel.component';
-import { HomeComponent } from './home/home.component';
+import {AppComponent } from './app.component';
+import {HeaderComponent } from './header/header.component';
+import {CarouselComponent } from './carousel/carousel.component';
+import {HomeComponent } from './home/home.component';
 import {AppRoutingModule} from "./app-routing.module";
-import { CardlistComponent } from './cardlist/cardlist.component';
-import { ErrorComponent } from './error/error.component';
+import {CardlistComponent } from './cardlist/cardlist.component';
+import {ErrorComponent } from './error/error.component';
 import {SignupComponent} from "./signup/signup.component";
 import {LoginComponent} from "./login/login.component";
 
@@ -31,7 +32,8 @@ import {LoginComponent} from "./login/login.component";
     AngularMaterialModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
+    HttpClientModule
 
   ],
   providers: [],

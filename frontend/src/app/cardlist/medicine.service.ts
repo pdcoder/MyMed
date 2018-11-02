@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders , HttpResponse} from '@angular/common/http';
 import {Medicine} from "./medicine.model";
 import "rxjs/Rx";
+import {Router} from "@angular/router";
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -11,16 +12,13 @@ const httpOptions = {
 })
 export class MedicineService {
 
-  constructor(private http: HttpClient) {
+  constructor(private  router: Router, private http: HttpClient) {
   }
 
 
   public getMedicines() {
 
-    return this.http.get<Medicine[]>('/api/')
-      .map((response) => {
-          return response;
-        }
-      );
+    return this.http.get('/api/');
+
   }
 }

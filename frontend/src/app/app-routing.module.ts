@@ -10,7 +10,6 @@ const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: '', component: SignupComponent },
   { path: '**', component: ErrorComponent }
 ];
 
