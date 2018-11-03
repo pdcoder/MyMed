@@ -1,0 +1,1 @@
+insert into users(email,password) values('pd@gmail.co','pdcoder');

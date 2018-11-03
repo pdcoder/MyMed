@@ -11,26 +11,28 @@ import {User} from '../user.model';
 })
 export class LoginComponent implements OnInit {
 
-  model : User ;
+
   constructor(private router: Router, private http: HttpClient) {
+
 
   }
 
   ngOnInit() {
+
     sessionStorage.setItem('token', '');
   }
   onFormSubmit(f: NgForm) {
-    console.log(f);
     this.http.post<Observable<boolean>>('/api/login', {
-      emai: this.model.email,
-      password: this.model.password
+      email: f.value.email,
+      password: f.value.password
     }).subscribe(isValid => {
       if (isValid) {
         sessionStorage.setItem(
           'token',
-          btoa(this.model.email + ':' + this.model.password)
+          btoa(f.value.email + ':' + f.value.password)
         );
         console.log("ddd");
+        alert("Authentication successfull.");
         this.router.navigate(['']);
       } else {
         alert("Authentication failed.")
