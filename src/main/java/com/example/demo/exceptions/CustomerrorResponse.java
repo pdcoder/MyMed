@@ -1,24 +1,26 @@
 package com.example.demo.exceptions;
 
+import java.util.Date;
+
 public class CustomerrorResponse {
 
-    private int status;
+    private Date timestamp;
     private String message;
-    private long timeStamp;
+    private String details;
 
-    public CustomerrorResponse(){}
-    public CustomerrorResponse(int status, String message, long timeStamp) {
-        this.status = status;
+    public CustomerrorResponse(Date timestamp, String message, String details) {
+        super();
+        this.timestamp = timestamp;
         this.message = message;
-        this.timeStamp = timeStamp;
+        this.details = details;
     }
 
-    public int getStatus() {
-        return status;
+    public Date getTimestamp() {
+        return timestamp;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getMessage() {
@@ -29,11 +31,12 @@ public class CustomerrorResponse {
         this.message = message;
     }
 
-    public long getTimeStamp() {
-        return timeStamp;
+    public String getDetails() {
+        return details;
     }
 
-    public void setTimeStamp(long timeStamp) {
-        this.timeStamp = timeStamp;
+    public void setDetails(String details) {
+        this.details = details;
     }
 }
+
