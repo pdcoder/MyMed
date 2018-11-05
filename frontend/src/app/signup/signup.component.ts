@@ -16,9 +16,11 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
   onFormSubmit(f: NgForm) {
+
     this.http.post<Observable<boolean>>('/api/signup', {
       email: f.value.email,
-      password: f.value.password
+      passwordfield: f.value.password,
+      fname: f.value.fname
     }).subscribe(isValid => {
       if (isValid) {
         sessionStorage.setItem(
@@ -27,7 +29,7 @@ export class SignupComponent implements OnInit {
         );
         console.log("ddd");
         alert("Authentication successfull.");
-        this.router.navigate(['']);
+        //this.router.navigate(['']);
       } else {
         alert("Authentication failed.")
       }

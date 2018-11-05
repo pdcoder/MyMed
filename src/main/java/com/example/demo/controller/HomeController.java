@@ -2,7 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.model.User;
 import com.example.demo.sevice.MedicineServices;
+import com.example.demo.sevice.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +16,12 @@ public class HomeController {
     @Autowired
     private MedicineServices medicineServices;
 
+    @Autowired
+    private UserServices userServices;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @GetMapping(path={"/"})
     public List getMedicineList(){
         return medicineServices.findAll();
@@ -21,6 +29,19 @@ public class HomeController {
 
     @PostMapping("/login")
     public  boolean login(@RequestBody User user){
-        return user.getEmail().equals("pd@gmail.com") && user.getPassword().equals("password");
+         if(userServices.findByEmail(user.getEmail())!= null)
+         {
+             if(userServices.)
+         }
+       // return user.getEmail().equals("pd@gmail.com") && user.getPasswordfield().equals("password");
+    }
+
+    @PostMapping("/signup")
+    public boolean signup(@RequestBody User user){
+        user.setPasswordfield(bCryptPasswordEncoder.encode(user.getPasswordfield()));
+        userServices.saveUser(user);
+
+        return  true;
+
     }
 }

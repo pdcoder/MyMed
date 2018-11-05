@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   onFormSubmit(f: NgForm) {
     this.http.post<Observable<boolean>>('/api/login', {
       email: f.value.email,
-      password: f.value.password
+      passwordfield: f.value.password
     }).subscribe(isValid => {
       if (isValid) {
         sessionStorage.setItem(

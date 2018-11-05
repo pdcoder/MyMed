@@ -1,6 +1,17 @@
 <form  #f="ngForm" (ngSubmit)="onFormSubmit(f)" >
 
   <mat-form-field class="formfield" appearance="outline">
+    <mat-label>Name </mat-label>
+    <input ngModel name="fname" #fname = "ngModel" id="inputName" matInput placeholder="Enter"  required >
+  </mat-form-field>
+  <div *ngIf="fname.invalid && (fname.dirty || fname.touched)"
+       class="alert alert-danger">
+    <div *ngIf = "fname.errors?.required">
+      <span class="error">Name field can't be blank</span>
+    </div>
+  </div>
+  <br />
+  <mat-form-field class="formfield" appearance="outline">
     <mat-label>Username/Email </mat-label>
     <input ngModel name="email" #email = "ngModel" id="inputEmail" matInput placeholder="Enter" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required >
 
@@ -15,30 +26,12 @@
     </div>
   </div>
   <br />
-  <div ngModelGroup="passwordgroup" #userPassword="ngModelGroup" required >
   <mat-form-field  class="formfield" appearance="outline">
     <mat-label>Password</mat-label>
-    <input ngModel id="inputPassword" name="pwd" name="password" matInput
-           minlength ="4" required
-           placeholder="Enter">
+    <input matInput ngModel #password="ngModel" name="password" minlength="4" placeholder="Enter" required/>
   </mat-form-field>
 
-  <br />
-  <mat-form-field  class="formfield" appearance="outline">
-    <mat-label>Password</mat-label>
-    <input  ngModel id="confirmPassword" name="confirmPwd" matInput placeholder="Confirm Password" required minlength="4">
-  </mat-form-field>
-    <div *ngIf="(userPassword.invalid|| userPassword.value?.pwd != userPassword.value?.confirmPwd) && (userPassword.touched)"
-         class="alert alert-danger">
 
-      <div *ngIf = "userPassword.invalid; else nomatch">
-        <span class="error">Password needs to be more than 4 characters</span>
-      </div>
-      <ng-template #nomatch >
-        <span class="error">Passwords don't match</span>
-      </ng-template>
-    </div>
-  </div>
   <br />
   <button type="submit" [disabled]="!f.valid" mat-raised-button>Signup</button>
 
