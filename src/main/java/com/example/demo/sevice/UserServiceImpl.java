@@ -13,8 +13,14 @@ public class UserServiceImpl implements UserServices {
 
     @Override
     public User findByEmail(String email){
-         User user = (User) repository.findAll();
+         User user =  repository.findByEmail(email);
          return user;
+    }
+
+    @Override
+    public String checkPassword(String email){
+        User user = findByEmail(email);
+        return user.getPasswordfield();
     }
 
     @Override

@@ -7,5 +7,5 @@ public interface UserServices {
 
     public void saveUser(User user);
 
-    public boolean checkPassword(String email);
+    public String checkPassword(String email);
 }

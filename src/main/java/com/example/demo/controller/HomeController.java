@@ -31,9 +31,17 @@ public class HomeController {
     public  boolean login(@RequestBody User user){
          if(userServices.findByEmail(user.getEmail())!= null)
          {
-             if(userServices.)
+             if(userServices.checkPassword(user.getEmail()).equals(user.getPasswordfield()))
+             {
+                 return true;
+             }
+             else{
+                 return false;
+             }
          }
-       // return user.getEmail().equals("pd@gmail.com") && user.getPasswordfield().equals("password");
+         else{
+             return false;
+         }
     }
 
     @PostMapping("/signup")
