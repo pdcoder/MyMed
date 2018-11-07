@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.exceptions.CustomerrorResponse;
+import com.example.demo.exceptions.UserNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                             HttpHeaders headers, HttpStatus status, WebRequest request)
     {
-        CustomerrorResponse errorDetails = new CustomerrorResponse(new Date(), "Validation Failed",
+        CustomerrorResponse errorDetails = new CustomerrorResponse(new Date(), "Fields Not Valid",
                 ex.getBindingResult().toString());
         return new ResponseEntity(errorDetails, HttpStatus.BAD_REQUEST);
 
@@ -34,9 +35,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(StudentNotFoundException.class)
-    public final ResponseEntity<Object> handleUserNotFoundException(StudentNotFoundException ex, WebRequest request) {
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
+    @ExceptionHandler(UserNotFoundException.class)
+    public final ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException ex, WebRequest request) {
+        CustomerrorResponse errorDetails = new CustomerrorResponse(new Date(), ex.getMessage(),
                 request.getDescription(false));
         return new ResponseEntity(errorDetails, HttpStatus.NOT_FOUND);
     }

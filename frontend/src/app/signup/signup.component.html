@@ -30,7 +30,9 @@
     <mat-label>Password</mat-label>
     <input matInput ngModel #password="ngModel" name="password" minlength="4" placeholder="Enter" required/>
   </mat-form-field>
-
+  <div *ngIf = "errors.length > 0">
+    <span class="error">{{errors}}</span>
+  </div>
 
   <br />
   <button type="submit" [disabled]="!f.valid" mat-raised-button>Signup</button>

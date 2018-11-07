@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 import { AngularMaterialModule } from "./material.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import {RouterModule} from "@angular/router";
@@ -16,6 +16,8 @@ import {ErrorComponent } from './error/error.component';
 import {SignupComponent} from "./signup/signup.component";
 import {LoginComponent} from "./login/login.component";
 import { IndividualMedComponent } from './individual-med/individual-med.component';
+import {LoginService} from "./login.service";
+import {AppErrorHandler} from "./app-error-handler";
 
 
 @NgModule({
@@ -40,7 +42,7 @@ import { IndividualMedComponent } from './individual-med/individual-med.componen
     FormsModule
 
   ],
-  providers: [],
+  providers: [LoginService, {provide: ErrorHandler, useClass: AppErrorHandler}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,14 +1,19 @@
 package com.example.demo.controller;
 
+import com.example.demo.exceptions.CustomerrorResponse;
+import com.example.demo.exceptions.UserExistsException;
 import com.example.demo.exceptions.UserNotFoundException;
 import com.example.demo.model.User;
 import com.example.demo.sevice.MedicineServices;
 import com.example.demo.sevice.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -30,35 +35,37 @@ public class HomeController {
     }
 
     @PostMapping("/login")
-    public  boolean login(@Valid @RequestBody User user){
+    public ResponseEntity<Object> login( @Valid @RequestBody User user){
 
          if(userServices.findByEmail(user.getEmail())!= null)
          {
              if(bCryptPasswordEncoder.matches(user.getPasswordfield(),userServices.checkPassword(user.getEmail())))
              {
-                 return true;
+                 CustomerrorResponse errorDetails = new CustomerrorResponse(new Date(), "Login Successful",
+                         "Thanks for Logging in");
+                 return new ResponseEntity(errorDetails, HttpStatus.ACCEPTED);
              }
              else{
-                 throw new UserNotFoundException();
+                 throw new UserNotFoundException("Wrong Credentials");
              }
          }
-         else{
-             return false;
+         else {
+             throw new UserNotFoundException("Mail Id does not exist");
          }
     }
 
     @PostMapping("/signup")
-    public boolean signup( @RequestBody User user){
-        if(userServices.findByEmail(user.getEmail())== null) {
+    public ResponseEntity<Object> signup( @Valid @RequestBody User user){
+        if(userServices.findByEmail(user.getEmail())== null){
             user.setPasswordfield(bCryptPasswordEncoder.encode(user.getPasswordfield()));
             userServices.saveUser(user);
+            CustomerrorResponse errorDetails = new CustomerrorResponse(new Date(), "Signup Successful",
+                    "Thanks for Signing up");
+            return new ResponseEntity(errorDetails, HttpStatus.ACCEPTED);
         }
         else{
-           // return false;
-            throw new UserNotFoundException();
+
+             throw new UserExistsException("EmailId already Exists");
         }
-
-        return  true;
-
     }
 }

@@ -2,7 +2,7 @@
 
   <mat-form-field class="formfield" appearance="outline">
     <mat-label>Username/Email</mat-label>
-    <input matInput placeholder="Enter" name="email" ngModel #email = "ngModel" required  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" />
+    <input matInput placeholder="Enter" name="email" ngModel #email = "ngModel" value="pd@gmail.com" required  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" />
 
   </mat-form-field>
 
@@ -17,11 +17,14 @@
   <br />
   <mat-form-field  class="formfield" appearance="outline">
     <mat-label>Password</mat-label>
-    <input matInput ngModel #password="ngModel" name="password" minlength="4" placeholder="Enter" required/>
+    <input matInput ngModel #password="ngModel" name="password" minlength="4" placeholder="Enter" value="'pdcoder'" required/>
   </mat-form-field>
 
   <div *ngIf = "password.invalid && password.touched">
     <span class="error">The password is wrong</span>
+  </div>
+  <div *ngIf = "errors.length > 0">
+    <span class="error">{{errors}}</span>
   </div>
 <br />
 

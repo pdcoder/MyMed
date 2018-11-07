@@ -14,17 +14,11 @@ public class User {
 
     @Column(name = "password")
     @NotNull
-    @Size(min = 6, message = "Minimum Length should be 4")
+    @Size(min = 6, message = "Minimum Length should be 6")
     private String passwordfield;
     @NotNull(message = "Cannot be empty")
     private String email;
 
-    public User( String fname, @NotNull @Size(min = 6, message = "Minimum Length should be 4") String passwordfield, @NotNull(message = "Cannot be empty") String email) {
-       super();
-        this.fname = fname;
-        this.passwordfield = passwordfield;
-        this.email = email;
-    }
 
     public String getPasswordfield() {
         return passwordfield;
