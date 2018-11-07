@@ -6,6 +6,7 @@ import com.example.demo.exceptions.UserNotFoundException;
 import com.example.demo.model.User;
 import com.example.demo.sevice.MedicineServices;
 import com.example.demo.sevice.UserServices;
+import com.example.demo.sevice.VerificationTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +21,23 @@ import java.util.List;
 @RequestMapping({"/api"})
 public class HomeController {
 
-    @Autowired
-    private MedicineServices medicineServices;
+
+    final VerificationTokenService verificationTokenService;
+
+
+    private final MedicineServices medicineServices;
+
+    private final UserServices userServices;
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    private UserServices userServices;
-
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    public HomeController(VerificationTokenService verificationTokenService, MedicineServices medicineServices, UserServices userServices, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.verificationTokenService = verificationTokenService;
+        this.medicineServices = medicineServices;
+        this.userServices = userServices;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @GetMapping(path={"/"})
     public List getMedicineList(){
@@ -61,11 +71,18 @@ public class HomeController {
             userServices.saveUser(user);
             CustomerrorResponse errorDetails = new CustomerrorResponse(new Date(), "Signup Successful",
                     "Thanks for Signing up");
+            verificationTokenService.createVerification(user.getEmail());
             return new ResponseEntity(errorDetails, HttpStatus.ACCEPTED);
         }
         else{
 
              throw new UserExistsException("EmailId already Exists");
         }
+    }
+
+    @GetMapping("/verify-email")
+    @ResponseBody
+    public String verifyEmail(String code) {
+        return verificationTokenService.verifyEmail(code).getBody();
     }
 }

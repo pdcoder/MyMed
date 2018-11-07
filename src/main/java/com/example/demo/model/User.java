@@ -14,11 +14,15 @@ public class User {
 
     @Column(name = "password")
     @NotNull
-    @Size(min = 6, message = "Minimum Length should be 6")
+    @Size(min = 4, message = "Minimum Length should be 6")
     private String passwordfield;
     @NotNull(message = "Cannot be empty")
     private String email;
 
+    private Boolean isActive;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private VerificationToken verificationToken;
 
     public String getPasswordfield() {
         return passwordfield;
@@ -51,5 +55,21 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public VerificationToken getVerificationToken() {
+        return verificationToken;
+    }
+
+    public void setVerificationToken(VerificationToken verificationToken) {
+        this.verificationToken = verificationToken;
     }
 }
