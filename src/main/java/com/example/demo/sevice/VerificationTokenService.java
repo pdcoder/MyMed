@@ -1,5 +1,5 @@
 package com.example.demo.sevice;
-
+/*
 import com.example.demo.model.User;
 import com.example.demo.model.VerificationToken;
 import com.example.demo.repository.UserRepository;
@@ -24,14 +24,14 @@ public class VerificationTokenService {
     private SendingMailService sendingMailService;
 
     public void createVerification(String email){
-        List<User> users = (List<User>) userRepository.findByEmail(email);
+       User users =  userRepository.findByEmail(email);
         User user;
-        if (users.isEmpty()) {
+        if (users==null) {
             user = new User();
             user.setEmail(email);
             userRepository.save(user);
         } else {
-            user = users.get(0);
+            user = users;
         }
 
         List<VerificationToken> verificationTokens = verificationTokenRepository.findByUserEmail(email);
@@ -65,4 +65,4 @@ public class VerificationTokenService {
 
         return ResponseEntity.ok("You have successfully verified your email address.");
     }
-}
+}*/

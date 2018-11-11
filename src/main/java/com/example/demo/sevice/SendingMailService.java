@@ -1,5 +1,5 @@
 package com.example.demo.sevice;
-
+/*
 import com.example.demo.model.MailProperties;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -69,4 +69,4 @@ public class SendingMailService {
 
         return false;
     }
-}
+}*/

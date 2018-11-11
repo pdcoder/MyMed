@@ -1,36 +1,36 @@
 package com.example.demo.model;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.Size;
+
+/**
+ * Created by rajeevkumarsingh on 01/08/17.
+ */
 
 @Entity
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Size(max = 40)
     private String fname;
 
-    @Column(name = "password")
-    @NotNull
-    @Size(min = 4, message = "Minimum Length should be 6")
-    private String passwordfield;
-    @NotNull(message = "Cannot be empty")
+    @Size(max = 15)
+    private String username;
+
+    @Size(max = 40)
     private String email;
 
-    private Boolean isActive;
+    @Size(max = 100)
+    private String passwordfield;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private VerificationToken verificationToken;
+    private String role;
 
-    public String getPasswordfield() {
-        return passwordfield;
-    }
 
-    public void setPasswordfield(String passwordfield) {
-        this.passwordfield = passwordfield;
-    }
 
     public Long getId() {
         return id;
@@ -48,6 +48,13 @@ public class User {
         this.fname = fname;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getEmail() {
         return email;
@@ -57,19 +64,19 @@ public class User {
         this.email = email;
     }
 
-    public Boolean getIsActive() {
-        return isActive;
+    public String getPasswordfield() {
+        return passwordfield;
     }
 
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
+    public void setPasswordfield(String passwordfield) {
+        this.passwordfield = passwordfield;
     }
 
-    public VerificationToken getVerificationToken() {
-        return verificationToken;
+    public String getRole() {
+        return role;
     }
 
-    public void setVerificationToken(VerificationToken verificationToken) {
-        this.verificationToken = verificationToken;
+    public void setRole(String role) {
+        this.role = role;
     }
 }

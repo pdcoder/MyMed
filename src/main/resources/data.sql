@@ -1,1 +1,1 @@
-insert into users(email,password) values('pd@gmail.co','pdcoder');
+delete from users where id = 4;

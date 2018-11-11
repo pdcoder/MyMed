@@ -3,10 +3,12 @@ package com.example.demo.controller;
 import com.example.demo.exceptions.CustomerrorResponse;
 import com.example.demo.exceptions.UserExistsException;
 import com.example.demo.exceptions.UserNotFoundException;
+import com.example.demo.model.JwtUser;
 import com.example.demo.model.User;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.security.JwtGenerator;
 import com.example.demo.sevice.MedicineServices;
 import com.example.demo.sevice.UserServices;
-import com.example.demo.sevice.VerificationTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +20,15 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping({"/api"})
+@RequestMapping({"/"})
 public class HomeController {
 
 
-    final VerificationTokenService verificationTokenService;
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    private JwtGenerator jwtGenerator;
 
 
     private final MedicineServices medicineServices;
@@ -32,8 +38,8 @@ public class HomeController {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public HomeController(VerificationTokenService verificationTokenService, MedicineServices medicineServices, UserServices userServices, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.verificationTokenService = verificationTokenService;
+    public HomeController(/*VerificationTokenService verificationTokenService,*/ MedicineServices medicineServices, UserServices userServices, BCryptPasswordEncoder bCryptPasswordEncoder) {
+      //  this.verificationTokenService = verificationTokenService;
         this.medicineServices = medicineServices;
         this.userServices = userServices;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -44,45 +50,53 @@ public class HomeController {
         return medicineServices.findAll();
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<Object> login( @Valid @RequestBody User user){
 
-         if(userServices.findByEmail(user.getEmail())!= null)
-         {
-             if(bCryptPasswordEncoder.matches(user.getPasswordfield(),userServices.checkPassword(user.getEmail())))
-             {
-                 CustomerrorResponse errorDetails = new CustomerrorResponse(new Date(), "Login Successful",
-                         "Thanks for Logging in");
-                 return new ResponseEntity(errorDetails, HttpStatus.ACCEPTED);
-             }
-             else{
-                 throw new UserNotFoundException("Wrong Credentials");
-             }
-         }
-         else {
-             throw new UserNotFoundException("Mail Id does not exist");
-         }
+    @PostMapping("/login")
+    public ResponseEntity<Object> login( @Valid @RequestBody JwtUser jwtUser ){
+
+
+        if(userServices.findByEmail(jwtUser.getEmail())!= null)
+        {
+            if(bCryptPasswordEncoder.matches(jwtUser.getPasswordfield(),userServices.checkPassword(jwtUser.getEmail())))
+            {
+                CustomerrorResponse errorDetails = new CustomerrorResponse(new Date(), "Login Successful",
+                        jwtGenerator.generate(jwtUser));
+
+
+                return ResponseEntity.ok(errorDetails);
+            }
+            else{
+                throw new UserNotFoundException("Wrong Credentials");
+            }
+        }
+        else {
+            throw new UserNotFoundException("Mail Id does not exist");
+        }
     }
 
     @PostMapping("/signup")
     public ResponseEntity<Object> signup( @Valid @RequestBody User user){
         if(userServices.findByEmail(user.getEmail())== null){
             user.setPasswordfield(bCryptPasswordEncoder.encode(user.getPasswordfield()));
+
             userServices.saveUser(user);
             CustomerrorResponse errorDetails = new CustomerrorResponse(new Date(), "Signup Successful",
                     "Thanks for Signing up");
-            verificationTokenService.createVerification(user.getEmail());
+           // verificationTokenService.createVerification(user.getEmail());
             return new ResponseEntity(errorDetails, HttpStatus.ACCEPTED);
         }
         else{
 
-             throw new UserExistsException("EmailId already Exists");
+            throw new UserExistsException("EmailId already Exists");
         }
     }
 
-    @GetMapping("/verify-email")
+
+  /*  @GetMapping("/verify-email")
     @ResponseBody
     public String verifyEmail(String code) {
         return verificationTokenService.verifyEmail(code).getBody();
-    }
+    }*/
+
+
 }
