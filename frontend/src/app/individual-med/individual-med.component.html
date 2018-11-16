@@ -1,0 +1,28 @@
+<div id="wrap">
+  <div id="product_layout_3">
+    <div class="product_image">
+      <div class="main_image">
+        <img src="https://i.imcgur.com/YwqxBXc.jpg"/>
+      </div>
+    </div>
+    <div class="product_desc">
+      <h1>{{message.name}}</h1>
+      <span class="price">{{ message.price + 130 | currency : 'INR'}}</span>
+      <span class="sale_price">{{ message.price | currency : 'INR'}}</span>
+      <div class="buying">
+        <div class="quantity">
+          <label for="quantity">QTY:</label>
+          <input type="text">
+        </div>
+        <div class="cart">
+          <button mat-button>Add to cart</button>
+        </div>
+      </div>
+
+      <div class="description">
+        <p>{{message.desc}}</p>
+      </div>
+
+    </div>
+  </div>
+</div>

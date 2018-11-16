@@ -4,5 +4,8 @@
 <img mat-card-image [src]="cardimage">
 <mat-card-content>
 <span>{{medicine.price | currency}}</span>
-<p>{{medicine.desc}}</p></mat-card-content>
+<p>{{medicine.desc}}</p>
+  <a [routerLink]="['/medicine',medicine.id]"><button mat-button (click)="changeMed(medicine)">Buy Now</button></a>
+  <button mat-button (click)="AddMed(medicine)">Add to cart</button>
+</mat-card-content>
 </mat-card>

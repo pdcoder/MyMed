@@ -21,20 +21,15 @@ export class SignupComponent implements OnInit {
   }
   onFormSubmit(f: NgForm) {
 
-    this.http.post<Observable<boolean>>('/api/signup', {
+    this.http.post<Observable<Response>>('/api/signup', {
       email: f.value.email,
       passwordfield: f.value.password,
       fname: f.value.fname
     }).catch((error: Response) => {
 
-      return Observable.throwError(new AppError(error))}).subscribe((response : Response) => {
-
-        sessionStorage.setItem(
-          'token',
-          btoa(f.value.email + ':' + f.value.password)
-        );
-        alert("Authentication successfull.");
-        //this.router.navigate(['']);
+      return Observable.throwError(new AppError(error))}).subscribe((response) => {
+        alert("Signup successfull.");
+        this.router.navigate(['/login']);
 
     }, (err : AppError) => {
       this.errors = err.message;

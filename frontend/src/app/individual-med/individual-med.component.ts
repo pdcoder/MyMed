@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import {DataService} from "../data.service";
+import {Medicine} from "../cardlist/medicine.model";
 
 @Component({
   selector: 'app-individual-med',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IndividualMedComponent implements OnInit {
 
-  constructor() { }
+  private id : string;
+  private message : Medicine;
+  constructor(private route: ActivatedRoute, private data : DataService) {
+  }
 
   ngOnInit() {
+
+      this.data.currentMessage.subscribe(message => this.message = message);
   }
 
 }

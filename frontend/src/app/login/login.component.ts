@@ -28,24 +28,24 @@ this.errors = "";
 
   onFormSubmit(f: NgForm) {
 
-    this.http.post<Observable<ApiResponse>>('/api/login', {
+    this.http.post<ApiResponse>('/api/login', {
       email: f.value.email,
-      passwordfield: f.value.password
+      passwordfield: f.value.password,
+      userName: f.value.username
     }).catch((error: Response) => {
 
-      return Observable.throwError(new AppError(error))}).subscribe((response : Response) => {
-        if (response.status === 200) {
+      return Observable.throwError(new AppError(error))})
+      .subscribe((response : ApiResponse) => {
           this.errors = response.message;
-          sessionStorage.setItem(
-            'token',
-            btoa(f.value.email + ':' + f.value.password)
-          );
-
-          //this.router.navigate(['']);
-        } else {
-          // alert("failed");
-          this.errors = response.message;
+          if(this.errors === 'Login Successful'){
+          sessionStorage.setItem('token', response.details);
+          alert("Successfull");
         }
+        else
+          {
+           alert("failed");
+          this.errors = response.message;
+          }
       }, (err : AppError) => {
       console.log("sub error");
 
@@ -53,7 +53,5 @@ this.errors = "";
           throw err;
 
       });
-    }
-
-
+}
 }

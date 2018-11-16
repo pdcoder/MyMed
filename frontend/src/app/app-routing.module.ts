@@ -5,12 +5,14 @@ import { ErrorComponent } from './error/error.component';
 import {LoginComponent} from "./login/login.component";
 import {SignupComponent} from "./signup/signup.component";
 import {IndividualMedComponent} from "./individual-med/individual-med.component";
+import { DocListComponent } from './doc-list/doc-list.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  {path: 'medicine/{id}', component: IndividualMedComponent},
+  {path: 'medicine/:id', component: IndividualMedComponent},
+  {path: 'doclist', component: DocListComponent},
   { path: '**', component: ErrorComponent }
 ];
 

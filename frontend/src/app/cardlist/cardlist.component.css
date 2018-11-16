@@ -1,7 +1,13 @@
 mat-card {
     object-fit: cover; /*this makes de image in src fit to the size of specified below*/
+    display: inline-block;
+    margin: 10px 30px;
+  width: 80%;
+
+  }
+@media screen and (min-width : 600px) {
+  mat-card{
     width: 30%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
     height: 30%;
-    display: inline-block;
-    
   }
+}

@@ -1,14 +1,14 @@
 export class Medicine {
 
   id: number;
-  firstName: string;
+  name: string;
   price: number;
   desc: string;
 
-  constructor(id: number,firstName: string,price: number,desc: string)
+  constructor(id: number,name: string,price: number,desc: string)
   {
     this.id = id;
-    this.firstName = firstName;
+    this.name = name;
     this.desc = desc;
     this.price = price;
   }

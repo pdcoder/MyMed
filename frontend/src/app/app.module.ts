@@ -18,6 +18,9 @@ import {LoginComponent} from "./login/login.component";
 import { IndividualMedComponent } from './individual-med/individual-med.component';
 import {LoginService} from "./login.service";
 import {AppErrorHandler} from "./app-error-handler";
+import { DocListComponent } from './doc-list/doc-list.component';
+import { FooterComponent } from './footer/footer.component';
+import { CartComponent } from './cart/cart.component';
 
 
 @NgModule({
@@ -30,7 +33,10 @@ import {AppErrorHandler} from "./app-error-handler";
     LoginComponent,
     SignupComponent,
     ErrorComponent,
-    IndividualMedComponent
+    IndividualMedComponent,
+    DocListComponent,
+    FooterComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

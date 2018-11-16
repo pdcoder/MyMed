@@ -23,8 +23,8 @@ import {
     MatPaginatorModule,
     MatDialogModule,
     MatIconModule,
+    MatFormFieldModule,
 
-    MatFormFieldModule
   ]
 })
 export class AngularMaterialModule {}
