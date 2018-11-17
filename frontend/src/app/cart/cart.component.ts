@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {Medicine} from "../cardlist/medicine.model";
+import {Observable, of} from "rxjs";
+import {CartService} from "../cart.service";
+import {faCartPlus} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-cart',
@@ -7,7 +11,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartComponent implements OnInit {
 
-  constructor() { }
+  public shoppingCartItems$: Observable<Medicine[]> = of([]);
+  public shoppingCartItems: Medicine[] = [];
+  faCartPlus = faCartPlus;
+
+  constructor(private cartService: CartService) {
+    this.shoppingCartItems$ = this
+      .cartService
+      .getItems();
+
+    this.shoppingCartItems$.subscribe(_ => this.shoppingCartItems = _);
+  }
 
   ngOnInit() {
   }

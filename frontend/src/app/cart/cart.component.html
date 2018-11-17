@@ -1,3 +1,2 @@
-<p>
-  cart works!
-</p>
+<a routerLink="/checkout"><fa-icon [icon]="faCartPlus"></fa-icon><span class="cart">{{(shoppingCartItems$ | async).length}}
+</span></a>

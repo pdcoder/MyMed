@@ -6,6 +6,7 @@ import {LoginComponent} from "./login/login.component";
 import {SignupComponent} from "./signup/signup.component";
 import {IndividualMedComponent} from "./individual-med/individual-med.component";
 import { DocListComponent } from './doc-list/doc-list.component';
+import {CheckoutComponent} from "./checkout/checkout.component";
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,6 +14,7 @@ const appRoutes: Routes = [
   { path: 'signup', component: SignupComponent },
   {path: 'medicine/:id', component: IndividualMedComponent},
   {path: 'doclist', component: DocListComponent},
+  {path: 'checkout', component: CheckoutComponent},
   { path: '**', component: ErrorComponent }
 ];
 

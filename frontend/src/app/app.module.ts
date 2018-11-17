@@ -21,6 +21,8 @@ import {AppErrorHandler} from "./app-error-handler";
 import { DocListComponent } from './doc-list/doc-list.component';
 import { FooterComponent } from './footer/footer.component';
 import { CartComponent } from './cart/cart.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { CartComponent } from './cart/cart.component';
     IndividualMedComponent,
     DocListComponent,
     FooterComponent,
-    CartComponent
+    CartComponent,
+    CheckoutComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -45,7 +49,8 @@ import { CartComponent } from './cart/cart.component';
     AppRoutingModule,
     RouterModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    FontAwesomeModule
 
   ],
   providers: [LoginService, {provide: ErrorHandler, useClass: AppErrorHandler}],
