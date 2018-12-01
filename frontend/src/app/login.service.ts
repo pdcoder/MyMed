@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {ApiResponse} from "./login/ApiResponse.model";
 
 @Injectable({
@@ -8,23 +8,24 @@ import {ApiResponse} from "./login/ApiResponse.model";
 })
 export class LoginService {
 
-  authenticated : boolean  = false;
 
+  private authenticated:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   constructor(private http : HttpClient) { }
 
+  getAuth(){
+    return this.authenticated.asObservable();
+
+  }
   checkAuth()
   {
-    this.authenticated = true;
+    this.authenticated.next(true);
   }
 
   logout()
   {
-    sessionStorage.setItem('token', '');
-    this.authenticated = false;
+    sessionStorage.removeItem('token');
+    this.authenticated.next(false);
   }
 
-  login(private mail : string, private pwd: string)
-  {
 
-  }
 }

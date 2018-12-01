@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularMaterialModule } from "../material.module";
+import {LoginService} from "../login.service";
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,9 @@ import { AngularMaterialModule } from "../material.module";
 })
 export class HomeComponent implements OnInit {
 
-  constructor() {
+  constructor(private auth : LoginService) {
+    console.log(this.auth.authenticated+"ddd");
+
   }
 
   ngOnInit() {

@@ -37,7 +37,7 @@ auth: boolean;
           this.errors = response.message;
           if(this.errors === 'Login Successful'){
           sessionStorage.setItem('token', response.details);
-          this.authService.authenticated = true;
+          this.authService.checkAuth();
           this.router.navigate(['/home']);
         }
         else

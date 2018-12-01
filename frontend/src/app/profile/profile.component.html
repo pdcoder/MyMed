@@ -1,3 +1,33 @@
-<p>
-  profile works!
-</p>
+<mat-grid-list cols="3" rowHeight="1:1">
+  <mat-grid-tile>
+    <div>
+      <img
+
+        [src]="'https://ssl.gstatic.com/images/branding/product/1x/avatar_square_blue_512dp.png'" [alt]="avatar"/>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <div>
+      <h3>Your Saved Address<br/></h3>
+      <span></span>
+    </div>
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+    <h3>Your orders</h3>
+    <mat-vertical-stepper>
+      <mat-step label="Step 1" >
+        <p>Put down your phones.</p>
+      </mat-step>
+      <mat-step label="Step 2" >
+        <p>Socialize with each other.</p>
+      </mat-step>
+      <mat-step label="Step 3">
+        <p>You're welcome.</p>
+      </mat-step>
+
+      <!-- Icon overrides. -->
+
+    </mat-vertical-stepper>
+  </mat-grid-tile>
+</mat-grid-list>

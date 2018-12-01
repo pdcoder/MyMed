@@ -9,7 +9,6 @@ import {LoginService} from "../login.service";
 export class ProfileComponent implements OnInit {
 
   constructor(private auth : LoginService) {
-    console.log(this.auth.authenticated);
   }
 
   ngOnInit() {
