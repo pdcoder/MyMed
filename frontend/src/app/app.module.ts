@@ -23,6 +23,7 @@ import { FooterComponent } from './footer/footer.component';
 import { CartComponent } from './cart/cart.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
     FooterComponent,
     CartComponent,
     CheckoutComponent,
+    ProfileComponent,
 
   ],
   imports: [

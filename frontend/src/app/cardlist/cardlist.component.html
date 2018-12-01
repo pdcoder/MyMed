@@ -3,9 +3,9 @@
   <mat-card-title>{{medicine.name | uppercase}}</mat-card-title>
 <img mat-card-image [src]="cardimage">
 <mat-card-content>
-<span>{{medicine.price | currency}}</span>
+<span>{{medicine.price | currency : 'INR'}}</span>
 <p>{{medicine.desc}}</p>
   <a [routerLink]="['/medicine',medicine.id]"><button mat-button (click)="changeMed(medicine)">Buy Now</button></a>
-  <button mat-button (click)="AddMed(medicine)">Add to cart</button>
+  <button mat-button (click)="addMed(medicine)">Add to cart</button>
 </mat-card-content>
 </mat-card>

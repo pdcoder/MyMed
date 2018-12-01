@@ -7,6 +7,8 @@ import 'rxjs/add/operator/catch';
 
 import {ApiResponse} from "./ApiResponse.model";
 import {AppError} from "../app.error";
+import {LoginService} from "../login.service";
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,23 +17,19 @@ import {AppError} from "../app.error";
 export class LoginComponent implements OnInit {
 
 errors : string ;
-  constructor(private router: Router, private http: HttpClient) {
-this.errors = "";
-
+auth: boolean;
+  constructor(private router: Router, private http: HttpClient, private authService : LoginService) {
+   this.errors = "";
   }
 
   ngOnInit() {
 
-    sessionStorage.setItem('token', '');
   }
-
-
   onFormSubmit(f: NgForm) {
 
     this.http.post<ApiResponse>('/api/login', {
       email: f.value.email,
-      passwordfield: f.value.password,
-      userName: f.value.username
+      passwordfield: f.value.password
     }).catch((error: Response) => {
 
       return Observable.throwError(new AppError(error))})
@@ -39,7 +37,8 @@ this.errors = "";
           this.errors = response.message;
           if(this.errors === 'Login Successful'){
           sessionStorage.setItem('token', response.details);
-          alert("Successfull");
+          this.authService.authenticated = true;
+          this.router.navigate(['/home']);
         }
         else
           {

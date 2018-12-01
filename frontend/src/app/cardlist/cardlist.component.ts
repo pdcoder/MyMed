@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Medicine } from './medicine.model';
 import { MedicineService } from './medicine.service';
 import {DataService} from "../data.service";
+import {CartService} from "../cart.service";
 
 @Component({
   selector: 'app-cardlist',
@@ -12,7 +13,7 @@ import {DataService} from "../data.service";
 export class CardlistComponent implements OnInit {
   cardimage : string = '';
   medicines: any = {};
-  constructor( private router : Router, private medicineservice : MedicineService, private data : DataService) {
+  constructor( private router : Router, private cartservice : CartService,private medicineservice : MedicineService, private data : DataService) {
     this.cardimage = '/assets/images/medical.jpg';
 
     this.medicineservice.getMedicines()
@@ -30,7 +31,7 @@ export class CardlistComponent implements OnInit {
   }
 
   addMed(med : Medicine){
-    this.data.changeMessage(med);
+    this.cartservice.addToCart(med);
   }
 
   ngOnInit() {

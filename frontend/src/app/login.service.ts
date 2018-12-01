@@ -8,7 +8,23 @@ import {ApiResponse} from "./login/ApiResponse.model";
 })
 export class LoginService {
 
+  authenticated : boolean  = false;
+
   constructor(private http : HttpClient) { }
 
+  checkAuth()
+  {
+    this.authenticated = true;
+  }
 
+  logout()
+  {
+    sessionStorage.setItem('token', '');
+    this.authenticated = false;
+  }
+
+  login(private mail : string, private pwd: string)
+  {
+
+  }
 }

@@ -3,8 +3,8 @@ import {NgForm} from "@angular/forms";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import { Router} from "@angular/router";
-import {ApiResponse} from "../login/ApiResponse.model";
 import {AppError} from "../app.error";
+import {LoginService} from "../login.service";
 
 @Component({
   selector: 'app-signup',
@@ -14,7 +14,7 @@ import {AppError} from "../app.error";
 export class SignupComponent implements OnInit {
   errors : string ;
 
-  constructor(private http: HttpClient,private router: Router) { }
+  constructor(private http: HttpClient,private router: Router, private auth: LoginService) { }
 
   ngOnInit() {
     this.errors="";

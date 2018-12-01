@@ -1,12 +1,6 @@
 <form #f = "ngForm"  (ngSubmit)="onFormSubmit(f)" novalidate>
 
   <mat-form-field class="formfield" appearance="outline">
-    <mat-label>Username</mat-label>
-    <input matInput placeholder="Enter" name="username" ngModel #username = "ngModel" required />
-
-  </mat-form-field>
-<br>
-  <mat-form-field class="formfield" appearance="outline">
     <mat-label>Email</mat-label>
     <input matInput placeholder="Enter" name="email" ngModel #email = "ngModel"  required  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" />
 

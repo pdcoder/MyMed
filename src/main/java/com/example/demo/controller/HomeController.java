@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping({"/"})
+@RequestMapping({"/api"})
 public class HomeController {
 
 
@@ -59,6 +59,8 @@ public class HomeController {
         {
             if(bCryptPasswordEncoder.matches(jwtUser.getPasswordfield(),userServices.checkPassword(jwtUser.getEmail())))
             {
+                User jwtmail = userServices.findByEmail(jwtUser.getEmail());
+                jwtUser.setUserName(jwtmail.getFname());
                 CustomerrorResponse errorDetails = new CustomerrorResponse(new Date(), "Login Successful",
                         jwtGenerator.generate(jwtUser));
 
@@ -74,6 +76,10 @@ public class HomeController {
         }
     }
 
+    @GetMapping("/doclist")
+    public ResponseEntity<Object> doclist(){
+return ResponseEntity.ok("Success");
+    }
     @PostMapping("/signup")
     public ResponseEntity<Object> signup( @Valid @RequestBody User user){
         if(userServices.findByEmail(user.getEmail())== null){
