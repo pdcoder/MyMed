@@ -2,10 +2,7 @@ package com.example.demo.model;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -26,5 +23,6 @@ public class Medicine {
     @NotNull
     @Column(name = "descshort")
     private String desc;
-
+    @Lob
+    private String image;
 }

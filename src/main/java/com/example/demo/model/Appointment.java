@@ -2,7 +2,6 @@ package com.example.demo.model;
 
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -12,12 +11,24 @@ public class Appointment {
     private Long id;
 
     @ManyToMany
-    private Set<Doctor> doctor = new HashSet<Doctor>();;
+    @JoinColumn(name = "doctor_id",nullable = false)
+    private Set<Doctor> doctor ;
 
     @ManyToOne
-    private Long user_id;
+    @JoinColumn(name = "user_id",nullable = false)
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     private String date;
+
+
 
     public Long getId() {
         return id;
@@ -35,13 +46,7 @@ public class Appointment {
         this.doctor = doctor;
     }
 
-    public Long getUser_id() {
-        return user_id;
-    }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
-    }
 
     public String getDate() {
         return date;

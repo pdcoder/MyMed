@@ -1,10 +1,8 @@
 package com.example.demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 /**
  * Created by rajeevkumarsingh on 01/08/17.
@@ -30,7 +28,19 @@ public class User {
 
     private String role;
 
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private Set<Appointment> appointments;
 
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private Set<Orders> orders;
+
+    public Set<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(Set<Appointment> appointments) {
+        this.appointments = appointments;
+    }
 
     public Long getId() {
         return id;
