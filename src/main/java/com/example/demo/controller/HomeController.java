@@ -3,8 +3,10 @@ package com.example.demo.controller;
 import com.example.demo.exceptions.CustomerrorResponse;
 import com.example.demo.exceptions.UserExistsException;
 import com.example.demo.exceptions.UserNotFoundException;
+import com.example.demo.model.Cart;
 import com.example.demo.model.JwtUser;
 import com.example.demo.model.User;
+import com.example.demo.repository.CartRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.JwtGenerator;
 import com.example.demo.sevice.MedicineServices;
@@ -26,6 +28,9 @@ public class HomeController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    CartRepository cartRepository;
 
     @Autowired
     private JwtGenerator jwtGenerator;
@@ -60,7 +65,11 @@ public class HomeController {
             if(bCryptPasswordEncoder.matches(jwtUser.getPasswordfield(),userServices.checkPassword(jwtUser.getEmail())))
             {
                 User jwtmail = userServices.findByEmail(jwtUser.getEmail());
-                jwtUser.setUserName(jwtmail.getFname());
+                Cart cart = null;
+                cart.setUser(jwtmail);
+                cartRepository.save(cart);
+                jwtUser.setUsername(jwtmail.getUsername());
+                jwtUser.setId(jwtmail.getId());
                 CustomerrorResponse errorDetails = new CustomerrorResponse(new Date(), "Login Successful",
                         jwtGenerator.generate(jwtUser));
 
@@ -76,10 +85,20 @@ public class HomeController {
         }
     }
 
+    @PostMapping("/cart")
+    public ResponseEntity<Boolean> cart(@RequestBody Cart cart)
+    {
+
+        cartRepository.save(cart);
+        return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+    }
+
     @GetMapping("/doclist")
     public ResponseEntity<Object> doclist(){
 return ResponseEntity.ok("Success");
     }
+
+
     @PostMapping("/signup")
     public ResponseEntity<Object> signup( @Valid @RequestBody User user){
         if(userServices.findByEmail(user.getEmail())== null){

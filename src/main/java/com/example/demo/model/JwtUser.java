@@ -2,7 +2,7 @@ package com.example.demo.model;
 
 
 public class JwtUser {
-    private String userName;
+    private String username;
     private long id;
     private String role;
     private String email;
@@ -24,8 +24,8 @@ public class JwtUser {
         this.passwordfield = passwordfield;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String userName) {
+        this.username = userName;
     }
 
     public void setId(long id) {
@@ -36,8 +36,8 @@ public class JwtUser {
         this.role = role;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
     public long getId() {

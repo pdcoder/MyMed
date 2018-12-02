@@ -34,6 +34,10 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private Set<Orders> orders;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Cart cart;
+
+
     public Set<Appointment> getAppointments() {
         return appointments;
     }

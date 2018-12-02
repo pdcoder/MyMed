@@ -1,3 +1,4 @@
+<div class="body">
 <h1>Shopping Cart</h1>
 
 <div class="shopping-cart">
@@ -13,10 +14,10 @@
 
   <div class="product" *ngFor="let items of shoppingCartItems">
     <div class="product-image">
-      <img src="https://s.cdpn.io/3/dingo-dog-bones.jpg">
+      <img src={{items.image}}>
     </div>
     <div class="product-details">
-      <div class="product-title">items.name</div>
+      <div class="product-title">{{items.name}}</div>
       <p class="product-description">{{items.desc}}.</p>
     </div>
     <div class="product-price">{{items.price | currency: 'INR'}}</div>
@@ -28,7 +29,7 @@
         Remove
       </button>
     </div>
-    <div class="product-line-price">25.98</div>
+    <div class="product-line-price">{{items.price * 2 | currency : 'INR'}}</div>
   </div>
 
 <div *ngIf="shoppingCartItems.length > 0 ; else nocomp">
@@ -56,4 +57,5 @@
     <h2>Your Cart is empty right now!</h2>
   </ng-template>
 
+</div>
 </div>

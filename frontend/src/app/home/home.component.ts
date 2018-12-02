@@ -10,7 +10,6 @@ import {LoginService} from "../login.service";
 export class HomeComponent implements OnInit {
 
   constructor(private auth : LoginService) {
-    console.log(this.auth.authenticated+"ddd");
 
   }
 

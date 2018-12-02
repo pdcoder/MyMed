@@ -1,7 +1,7 @@
 <h2>Get a Glimpse of our collection</h2>
-<mat-card class="mat-elevation-4" *ngFor="let medicine of medicines">
+<mat-card class="card mat-elevation-4" *ngFor="let medicine of medicines">
   <mat-card-title>{{medicine.name | uppercase}}</mat-card-title>
-<img mat-card-image [src]="cardimage">
+<img mat-card-image src={{medicine.image}}>
 <mat-card-content>
 <span>{{medicine.price | currency : 'INR'}}</span>
 <p>{{medicine.desc}}</p>
@@ -9,3 +9,4 @@
   <button mat-button (click)="addMed(medicine)">Add to cart</button>
 </mat-card-content>
 </mat-card>
+<h2>Book an Appointment</h2>

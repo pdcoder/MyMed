@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {Observable, of} from "rxjs";
 import {Medicine} from "../cardlist/medicine.model";
 import {CartService} from "../cart.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-checkout',
@@ -13,7 +14,7 @@ export class CheckoutComponent implements OnInit {
   public shoppingCartItems$: Observable<Medicine[]> = of([]);
   public shoppingCartItems: Medicine[] = [];
 
-  constructor(private cartService : CartService) {
+  constructor(private cartService : CartService, private http : HttpClient) {
     this.shoppingCartItems$ = this
       .cartService
       .getItems();
@@ -23,5 +24,6 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit() {
   }
+
 
 }

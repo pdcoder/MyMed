@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import {Medicine} from "../cardlist/medicine.model";
 import {Observable, of} from "rxjs";
 import {CartService} from "../cart.service";
-import {faCartPlus} from "@fortawesome/free-solid-svg-icons";
+import {faCartPlus} from '@fortawesome/free-solid-svg-icons';
+import {HttpClient} from "@angular/common/http";
+import * as jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-cart',
@@ -15,7 +17,7 @@ export class CartComponent implements OnInit {
   public shoppingCartItems: Medicine[] = [];
   faCartPlus = faCartPlus;
 
-  constructor(private cartService: CartService) {
+  constructor(private http : HttpClient,private cartService: CartService) {
     this.shoppingCartItems$ = this
       .cartService
       .getItems();
@@ -26,4 +28,28 @@ export class CartComponent implements OnInit {
   ngOnInit() {
   }
 
+  getDecodedAccessToken(token: string): any {
+    try{
+      return jwt_decode(token);
+    }
+    catch(Error){
+      return null;
+    }
+  }
+
+  ngOnChanges(){
+
+
+    const token  =  localStorage.getItem('token');
+    console.log(token);
+    let tokenInfo = this.getDecodedAccessToken(token);
+    let username = tokenInfo.sub;
+    let id = tokenInfo.userId;
+    if((this.shoppingCartItems).length>0){
+      this.http.post('/api/cart', {
+        cart : this.shoppingCartItems,
+        user_id: id
+      });
+    }
+  }
 }
