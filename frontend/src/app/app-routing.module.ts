@@ -8,6 +8,7 @@ import {IndividualMedComponent} from "./individual-med/individual-med.component"
 import { DocListComponent } from './doc-list/doc-list.component';
 import {CheckoutComponent} from "./checkout/checkout.component";
 import {ProfileComponent} from "./profile/profile.component";
+import {AuthGuard} from "./auth.guard";
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,8 +16,8 @@ const appRoutes: Routes = [
   { path: 'signup', component: SignupComponent },
   {path: 'medicine/:id', component: IndividualMedComponent},
   {path: 'doclist', component: DocListComponent},
-  {path: 'checkout', component: CheckoutComponent},
-  {path: 'home', component: ProfileComponent},
+  {path: 'checkout', component: CheckoutComponent,canActivate: [AuthGuard]},
+  {path: 'home', component: ProfileComponent,canActivate: [AuthGuard]},
   { path: '**', component: ErrorComponent }
 ];
 

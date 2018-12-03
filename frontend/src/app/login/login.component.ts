@@ -36,8 +36,8 @@ auth: boolean;
       .subscribe((response : ApiResponse) => {
           this.errors = response.message;
           if(this.errors === 'Login Successful'){
-          sessionStorage.setItem('token', response.details);
-          this.authService.checkAuth();
+            this.authService.checkAuth();
+            this.authService.sendToken(response.details);
           this.router.navigate(['/home']);
         }
         else

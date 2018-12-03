@@ -18,11 +18,20 @@ public class Doctor {
     @NotNull
     private String visit;
 
+    private String speciality;
 
     private String status;
 
     @OneToMany(mappedBy = "doctor")
     private Set<Appointment> appointments;
+
+    public String getSpeciality() {
+        return speciality;
+    }
+
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
+    }
 
     public Set<Appointment> getAppointments() {
         return appointments;

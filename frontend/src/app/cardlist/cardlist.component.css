@@ -1,21 +1,33 @@
-mat-card {
+mat-card{
     display: inline-block;
-    margin: 10px 20px;
-  border: dot-dash black;
-  max-height: 300px;
-  min-height: 300px;
+    margin: 10px 30px;
+    height: auto;
+
   }
-.card{
-  border: black;
-}
+
 @media screen and (min-width : 600px) {
   mat-card{
-    width: 30%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
-    height: 30%;
+    width: 20%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
   }
 }
+
+@media screen and (max-width : 600px) {
+  mat-card {
+    width: 80%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
+  }
+}
+
+  .example-header-image {
+    background-image: url('https://ssl.gstatic.com/images/branding/product/1x/avatar_square_blue_512dp.png');
+    background-size: cover;
+  }
+
 h2{
   color: grey;
   text-align: center;
   padding: 20px ;
+}
+
+a{
+  color:green;
 }

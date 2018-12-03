@@ -36,6 +36,8 @@ public class HomeController {
     private JwtGenerator jwtGenerator;
 
 
+    private final DoctorServices doctorServices;
+
     private final MedicineServices medicineServices;
 
     private final UserServices userServices;
@@ -55,6 +57,10 @@ public class HomeController {
         return medicineServices.findAll();
     }
 
+    @GetMapping(path={"/"})
+    public List getDoctorList(){
+        return doctorServices.findAll();
+    }
 
     @PostMapping("/login")
     public ResponseEntity<Object> login( @Valid @RequestBody JwtUser jwtUser ){
@@ -65,9 +71,6 @@ public class HomeController {
             if(bCryptPasswordEncoder.matches(jwtUser.getPasswordfield(),userServices.checkPassword(jwtUser.getEmail())))
             {
                 User jwtmail = userServices.findByEmail(jwtUser.getEmail());
-                Cart cart = null;
-                cart.setUser(jwtmail);
-                cartRepository.save(cart);
                 jwtUser.setUsername(jwtmail.getUsername());
                 jwtUser.setId(jwtmail.getId());
                 CustomerrorResponse errorDetails = new CustomerrorResponse(new Date(), "Login Successful",

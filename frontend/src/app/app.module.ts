@@ -21,9 +21,10 @@ import {AppErrorHandler} from "./app-error-handler";
 import { DocListComponent } from './doc-list/doc-list.component';
 import { FooterComponent } from './footer/footer.component';
 import { CartComponent } from './cart/cart.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ProfileComponent } from './profile/profile.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {AuthGuard} from "./auth.guard";
 
 
 @NgModule({
@@ -55,7 +56,7 @@ import { ProfileComponent } from './profile/profile.component';
     FontAwesomeModule
 
   ],
-  providers: [LoginService, {provide: ErrorHandler, useClass: AppErrorHandler}],
+  providers: [LoginService, AuthGuard, {provide: ErrorHandler, useClass: AppErrorHandler}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

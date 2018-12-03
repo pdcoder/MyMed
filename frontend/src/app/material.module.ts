@@ -4,7 +4,6 @@ import {
   MatCardModule,
   MatButtonModule,
   MatToolbarModule,
-  MatExpansionModule,
   MatProgressSpinnerModule,
   MatPaginatorModule,
   MatDialogModule, MatMenuModule, MatIconModule,
@@ -12,7 +11,8 @@ import {
   MatIcon,
   MatBadgeModule,
   MatGridListModule,
-  MatStepperModule
+  MatStepperModule,
+  MatExpansionModule
 } from "@angular/material";
 
 @NgModule({
@@ -30,7 +30,8 @@ import {
     MatBadgeModule,
     MatFormFieldModule,
     MatGridListModule,
-    MatStepperModule
+    MatStepperModule,
+    MatExpansionModule
 
   ]
 })
