@@ -25,7 +25,8 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": ["project_name/node_modules/parallax-js/dist/parallax.min.js"
+            ]
           },
           "configurations": {
             "production": {

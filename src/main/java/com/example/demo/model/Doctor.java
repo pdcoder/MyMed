@@ -22,6 +22,9 @@ public class Doctor {
 
     private String status;
 
+    private String description;
+
+
     @OneToMany(mappedBy = "doctor")
     private Set<Appointment> appointments;
 
@@ -71,5 +74,13 @@ public class Doctor {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

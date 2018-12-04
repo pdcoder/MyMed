@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import {Medicine} from "../cardlist/medicine.model";
 import {Observable, of} from "rxjs";
 import {CartService} from "../cart.service";
@@ -37,19 +37,13 @@ export class CartComponent implements OnInit {
     }
   }
 
-  ngOnChanges(){
+  ngAfterViewChecked(){
 
-
+    console.log(this.shoppingCartItems);
     const token  =  localStorage.getItem('token');
-    console.log(token);
     let tokenInfo = this.getDecodedAccessToken(token);
-    let username = tokenInfo.sub;
     let id = tokenInfo.userId;
-    if((this.shoppingCartItems).length>0){
-      this.http.post('/api/cart', {
-        cart : this.shoppingCartItems,
-        user_id: id
-      });
-    }
+    window.sessionStorage.setItem(id,(this.shoppingCartItems).name);
+
   }
 }

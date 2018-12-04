@@ -1,4 +1,5 @@
 <h2>Get a Glimpse of our collection</h2>
+<div class="center">
 <mat-card  *ngFor="let medicine of medicines">
   <mat-card-title>{{medicine.name | uppercase}}</mat-card-title>
 <img mat-card-image src={{medicine.image}}>
@@ -9,28 +10,27 @@
   <button mat-button (click)="addMed(medicine)">Add to cart</button>
 </mat-card-content>
 </mat-card>
+<br/>
+</div>
+<a routerLink="/medlist"><button mat-raised-button id="more" [style.float]="'right'">SEE MORE</button></a>
 
+<div id="scene">
+</div>
 
 <h2>Book an Appointment</h2>
-<mat-card  *ngFor="let medicine of medicines">
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>{{medicine.name | uppercase}}</mat-card-title>
-
-  </mat-card-header>
-  <mat-card-content>
-    <span>{{medicine.price | currency : 'INR'}}</span>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        This is the expansion title
-      </mat-expansion-panel-header>
-
-      <p>This is the primary content of the panel.</p>
-
-      <mat-action-row>
-        <button mat-button>Click me</button>
-      </mat-action-row>
-    </mat-expansion-panel>
-  </mat-card-content>
-</mat-card>
+<div class="center">
+  <mat-card  appHoverover  *ngFor="let doctor of doctors | slice:0:3">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Dr. {{doctor.name}}</mat-card-title>
+      <mat-card-subtitle>{{doctor.speciality}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <span>Visit : {{doctor.visit | currency : 'INR'}}</span>
+      <p [style.display]="'none'" class="card">{{doctor.description}}</p>
+    </mat-card-content>
+  </mat-card>
+</div>
+<br/>
+<a routerLink="/doclist"><button id="more" mat-raised-button [style.float]="'right'">SEE MORE</button></a>
 

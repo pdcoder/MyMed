@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , AfterContentInit} from '@angular/core';
+import * as Parallax from 'parallax-js';
 import { Router } from '@angular/router';
 import { Medicine } from './medicine.model';
 import { MedicineService } from './medicine.service';
 import {DataService} from "../data.service";
 import {CartService} from "../cart.service";
+import {DoctorService} from "../doctor.service";
 
 @Component({
   selector: 'app-cardlist',
@@ -13,7 +15,8 @@ import {CartService} from "../cart.service";
 export class CardlistComponent implements OnInit {
   cardimage : string = '';
   medicines: any = {};
-  constructor( private router : Router, private cartservice : CartService,private medicineservice : MedicineService, private data : DataService) {
+  doctors : any = {};
+  constructor( private router : Router, private cartservice : CartService,private medicineservice : MedicineService,private doctorService : DoctorService,private data : DataService) {
     this.cardimage = '/assets/images/medical.jpg';
 
     this.medicineservice.getMedicines()
@@ -24,6 +27,14 @@ export class CardlistComponent implements OnInit {
         (error)=> console.log(error)
       );
 
+
+    this.doctorService.getDoctors()
+      .subscribe( (data) => {
+          this.doctors = data;
+          console.log(data);
+        },
+        (error)=> console.log(error)
+      );
   }
 
   changeMed(med : Medicine){

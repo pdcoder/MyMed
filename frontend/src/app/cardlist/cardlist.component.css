@@ -9,6 +9,9 @@ mat-card{
   mat-card{
     width: 20%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
   }
+  .center{
+    margin: 0px 30px;
+  }
 }
 
 @media screen and (max-width : 600px) {
@@ -30,4 +33,16 @@ h2{
 
 a{
   color:green;
+}
+
+#scene{
+  background-image: url("https://www.quickanddirtytips.com/sites/default/files/styles/insert_large/public/images/12031/choosing-a-doctor.png?itok=o5HdM8kT");
+  background-size: cover ;
+  height: 100%;
+  width: 100%;
+  margin-top: 50px;
+}
+
+#more{
+  margin-right: 20px;
 }

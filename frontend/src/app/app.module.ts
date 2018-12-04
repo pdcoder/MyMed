@@ -25,6 +25,9 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {AuthGuard} from "./auth.guard";
+import { HoveroverDirective } from './hoverover.directive';
+import { MedListComponent } from './med-list/med-list.component';
+import { LimitPipe } from './limit.pipe';
 
 
 @NgModule({
@@ -43,6 +46,9 @@ import {AuthGuard} from "./auth.guard";
     CartComponent,
     CheckoutComponent,
     ProfileComponent,
+    HoveroverDirective,
+    MedListComponent,
+    LimitPipe,
 
   ],
   imports: [

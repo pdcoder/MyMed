@@ -9,6 +9,7 @@ import com.example.demo.model.User;
 import com.example.demo.repository.CartRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.JwtGenerator;
+import com.example.demo.sevice.DoctorService;
 import com.example.demo.sevice.MedicineServices;
 import com.example.demo.sevice.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class HomeController {
     private JwtGenerator jwtGenerator;
 
 
-    private final DoctorServices doctorServices;
+    private final DoctorService doctorServices;
 
     private final MedicineServices medicineServices;
 
@@ -45,11 +46,12 @@ public class HomeController {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public HomeController(/*VerificationTokenService verificationTokenService,*/ MedicineServices medicineServices, UserServices userServices, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public HomeController(/*VerificationTokenService verificationTokenService,*/ MedicineServices medicineServices, UserServices userServices, BCryptPasswordEncoder bCryptPasswordEncoder, DoctorService doctorServices) {
       //  this.verificationTokenService = verificationTokenService;
         this.medicineServices = medicineServices;
         this.userServices = userServices;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.doctorServices = doctorServices;
     }
 
     @GetMapping(path={"/"})
@@ -57,10 +59,6 @@ public class HomeController {
         return medicineServices.findAll();
     }
 
-    @GetMapping(path={"/"})
-    public List getDoctorList(){
-        return doctorServices.findAll();
-    }
 
     @PostMapping("/login")
     public ResponseEntity<Object> login( @Valid @RequestBody JwtUser jwtUser ){
@@ -97,8 +95,8 @@ public class HomeController {
     }
 
     @GetMapping("/doclist")
-    public ResponseEntity<Object> doclist(){
-return ResponseEntity.ok("Success");
+    public List doclist(){
+return doctorServices.findAll();
     }
 
 
