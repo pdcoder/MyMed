@@ -1,5 +1,4 @@
 import { Component, OnInit , AfterContentInit} from '@angular/core';
-import * as Parallax from 'parallax-js';
 import { Router } from '@angular/router';
 import { Medicine } from './medicine.model';
 import { MedicineService } from './medicine.service';

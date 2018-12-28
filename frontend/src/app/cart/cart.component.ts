@@ -43,7 +43,6 @@ export class CartComponent implements OnInit {
     const token  =  localStorage.getItem('token');
     let tokenInfo = this.getDecodedAccessToken(token);
     let id = tokenInfo.userId;
-    window.sessionStorage.setItem(id,(this.shoppingCartItems).name);
 
   }
 }

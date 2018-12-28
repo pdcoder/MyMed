@@ -1,5 +1,5 @@
 <h2>List of all our Doctors</h2>
-<mat-card  appHoverover  *ngFor="let doctor of doctors">
+<mat-card  appHoverover  *ngFor="let doctor of doctors | limit : searchText">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>Dr. {{doctor.name}}</mat-card-title>

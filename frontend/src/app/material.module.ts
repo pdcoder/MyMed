@@ -8,7 +8,7 @@ import {
   MatPaginatorModule,
   MatDialogModule, MatMenuModule, MatIconModule,
   MatFormFieldModule,
-  MatIcon,
+  MatSidenavModule,
   MatBadgeModule,
   MatGridListModule,
   MatStepperModule,
@@ -31,7 +31,8 @@ import {
     MatFormFieldModule,
     MatGridListModule,
     MatStepperModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSidenavModule
 
   ]
 })

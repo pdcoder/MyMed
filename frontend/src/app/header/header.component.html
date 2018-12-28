@@ -1,11 +1,34 @@
-<mat-toolbar color="primary">
+<div fxShow="true" fxHide.gt-sm="true">
+  <mat-toolbar color="primary">
+  <mat-toolbar-row>
+   <span>
+    <a routerLink="/" routerLinkActive="mat-accent">MyMed</a>
+  </span>
+    <span class="spacer"></span>
+    <div class="menu">
+   <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+</div>
+
+  <div fxShow="true" fxHide.lt-md="true">
+  <mat-toolbar color="primary">
   <span>
     <a routerLink="/" routerLinkActive="mat-accent">MyMed</a>
   </span>
+
+  <div fxFlex fxShow=”true” fxHide.lt-md=”true”>
+
   <form id="demo-1">
-    <input type="search" placeholder="Search">
-  </form>
+    <input type="search"  placeholder="Search">
+  </form>1111
+  </div>
   <span class="spacer"></span>
+  <div fxFlex fxShow=”true” fxHide.lt-md=”true”>
+
   <ul>
     <li *ngIf="isAuthenticated">
       <a mat-button routerLink="/home" routerLinkActive="mat-accent">My Account</a>
@@ -26,5 +49,6 @@
       <app-cart></app-cart>
     </li>
   </ul>
+  </div>
 </mat-toolbar>
-
+</div>

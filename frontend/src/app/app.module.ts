@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import {RouterModule} from "@angular/router";
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 import {AppComponent } from './app.component';
 import {HeaderComponent } from './header/header.component';
@@ -28,6 +29,7 @@ import {AuthGuard} from "./auth.guard";
 import { HoveroverDirective } from './hoverover.directive';
 import { MedListComponent } from './med-list/med-list.component';
 import { LimitPipe } from './limit.pipe';
+import { SearchComponent } from './search/search.component';
 
 
 @NgModule({
@@ -49,6 +51,7 @@ import { LimitPipe } from './limit.pipe';
     HoveroverDirective,
     MedListComponent,
     LimitPipe,
+    SearchComponent,
 
   ],
   imports: [
@@ -59,7 +62,8 @@ import { LimitPipe } from './limit.pipe';
     RouterModule,
     HttpClientModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FlexLayoutModule
 
   ],
   providers: [LoginService, AuthGuard, {provide: ErrorHandler, useClass: AppErrorHandler}],
