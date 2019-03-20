@@ -6,7 +6,7 @@ footer {
   padding:15px 0 15px 0 ;
   left: 0;
   bottom: 0;
-  position: relative;
+  position: fixed;
   height: 30px;
   width: 100%;
   margin-top: 100px;

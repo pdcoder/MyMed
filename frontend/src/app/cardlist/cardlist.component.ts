@@ -21,10 +21,8 @@ export class CardlistComponent implements OnInit {
 
     this.medicineservice.getMedicines()
      .subscribe( (datas) => {
-        // let res = (datas as Medicine[]).map((med) => new Medicine(med.id,med.name, med.price, med.desc, med.image, med.qty, med.nmbr));
-        // this.datas = this.datas.concat(res);
+
           this.medicines = datas;
-         // console.log(this.medicines);
         },
         (error)=> console.log(error)
       );

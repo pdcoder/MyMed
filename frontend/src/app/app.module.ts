@@ -32,6 +32,7 @@ import { LimitPipe } from './limit.pipe';
 import { SearchComponent } from './search/search.component';
 import { SearchdDirective } from './searchd.directive';
 import { ChkoutDirective } from './chkout.directive';
+import { CartanimationComponent } from './cartanimation/cartanimation.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { ChkoutDirective } from './chkout.directive';
     SearchComponent,
     SearchdDirective,
     ChkoutDirective,
+    CartanimationComponent,
 
   ],
   imports: [

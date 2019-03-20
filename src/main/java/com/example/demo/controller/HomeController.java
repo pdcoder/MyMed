@@ -5,6 +5,7 @@ import com.example.demo.exceptions.UserExistsException;
 import com.example.demo.exceptions.UserNotFoundException;
 import com.example.demo.model.Cart;
 import com.example.demo.model.JwtUser;
+import com.example.demo.model.Orders;
 import com.example.demo.model.User;
 import com.example.demo.repository.CartRepository;
 import com.example.demo.repository.UserRepository;
@@ -12,6 +13,7 @@ import com.example.demo.security.JwtGenerator;
 import com.example.demo.sevice.DoctorService;
 import com.example.demo.sevice.MedicineServices;
 import com.example.demo.sevice.UserServices;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -123,12 +125,16 @@ public class HomeController {
         }
     }
 
+    @PostMapping("/order")
+    public ResponseEntity<Object> order(@Valid @RequestBody Orders order){
+        CustomerrorResponse response = new CustomerrorResponse(new Date(), "Order placed","Thanks for placing order");
+        return new ResponseEntity(response, HttpStatus.ACCEPTED);
+    }
 
   /*  @GetMapping("/verify-email")
     @ResponseBody
     public String verifyEmail(String code) {
         return verificationTokenService.verifyEmail(code).getBody();
     }*/
-
 
 }

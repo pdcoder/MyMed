@@ -56,14 +56,13 @@
     </div>
     <div class="totals-item totals-item-total">
       <label>Grand Total</label>
-      <div class="totals-value" #totalsum id="cart-total">{{ (sum * 0.02) + (sum * 0.05) + sum | currency : 'INR'}}</div>
+      <div class="totals-value" id="cart-total">{{ (sum * 0.02) + (sum * 0.05) + sum | currency : 'INR'}}</div>
     </div>
   </div>
-  <button (click)="order()" class="checkout" mat-raised-button color="success">Checkout</button>
+  <button class="checkout" mat-raised-button color="success">Finish</button>
 </div>
   <ng-template #nocomp>
     <h2>Your Cart is empty right now!</h2>
   </ng-template>
 
-</div>
 </div>

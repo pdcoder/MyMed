@@ -3,8 +3,10 @@ package com.example.demo.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.sql.Time;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Set;
 
 @Entity
@@ -15,17 +17,22 @@ import java.util.Set;
 @EqualsAndHashCode
 public class Orders {
 
+    Date dates = new Date();
+    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+
     @Id
     @GeneratedValue
     private Long id;
 
-    private Date date;
-    private Time time;
+    @Builder.Default
+    private String date = dateFormat.format(dates);
+
+    @Builder.Default
+    private String time = timeFormat.format(dates);
+
 
     private String status;
-
-    @ManyToMany
-    private Set<Medicine> medicine;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
