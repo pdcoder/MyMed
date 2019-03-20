@@ -1,0 +1,69 @@
+<div class="body">
+<h1>Shopping Cart</h1>
+
+<div class="shopping-cart">
+
+  <div class="column-labels">
+    <label class="product-image">Image</label>
+    <label class="product-details">Product</label>
+    <label class="product-price">Price</label>
+    <label class="product-quantity">Quantity</label>
+    <label class="product-removal">Remove</label>
+    <label class="product-line-price">Total</label>
+  </div>
+
+  <div class="product" *ngFor="let items of shoppingCartItems">
+    <div class="product-image">
+      <img src={{items.image}}>
+      <mat-icon>plus</mat-icon>
+
+    </div>
+    <div class="product-details">
+      <div class="product-title">{{items.name}}</div>
+      <p class="product-description">{{items.desc}}.</p>
+    </div>
+    <div class="product-price">{{items.price | currency: 'INR'}}</div>
+    <div class="product-quantity">
+      <button  isIconButton="true" mat-icon-button color="warn">
+        <mat-icon>favourite</mat-icon>
+      </button>
+      <input type="number" appChkout #qty1 (input)="addQty(items.id,qty1.value)" [(ngModel)]="items.nmbr"  ngModel>
+      <button mat-icon-button color="warn">
+        <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+      </button>
+    </div>
+    <div class="product-removal">
+      <button mat-raised-button color="warn"  (click)="remove(items)">Remove</button>
+    </div>
+    <div class="product-line-price" ngModel #ind="ngModel">{{items.price * qty1.value | currency : 'INR'}}</div>
+  </div>
+
+<div *ngIf="shoppingCartItems.length > 0 ; else nocomp">
+  <div class="totals">
+    <div class="totals-item">
+      <label>Subtotal</label>
+      <div  class="totals-value" id="cart-subtotal">
+        <input disabled [ngModel]="sum | currency : 'INR'"/>
+      </div>
+    </div>
+    <div class="totals-item">
+      <label>Tax (5%)</label>
+      <div class="totals-value" ngModel  #tx id="cart-tax">{{ sum * 0.02 | currency : 'INR'}}</div>
+    </div>
+    <div class="totals-item">
+      <label>Shipping</label>
+      <div class="totals-value" #sh id="cart-shipping">{{ sum * 0.05 | currency : 'INR' }}</div>
+    </div>
+    <div class="totals-item totals-item-total">
+      <label>Grand Total</label>
+      <div class="totals-value" id="cart-total">{{ (sum * 0.02) + (sum * 0.05) + sum | currency : 'INR'}}</div>
+    </div>
+  </div>
+  <button class="checkout" mat-raised-button color="success">Finish</button>
+</div>
+  <ng-template #nocomp>
+    <h2>Your Cart is empty right now!</h2>
+  </ng-template>
+
+</div>
+</div>

@@ -1,0 +1,41 @@
+<form  #f="ngForm" (ngSubmit)="onFormSubmit(f)" >
+
+  <mat-form-field class="formfield" appearance="outline">
+    <mat-label>Name </mat-label>
+    <input ngModel name="fname" #fname = "ngModel" id="inputName" matInput placeholder="Enter"  required >
+  </mat-form-field>
+  <div *ngIf="fname.invalid && (fname.dirty || fname.touched)"
+       class="alert alert-danger">
+    <div *ngIf = "fname.errors?.required">
+      <span class="error">Name field can't be blank</span>
+    </div>
+  </div>
+  <br />
+  <mat-form-field class="formfield" appearance="outline">
+    <mat-label>Username/Email </mat-label>
+    <input ngModel name="email" #email = "ngModel" id="inputEmail" matInput placeholder="Enter" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required >
+
+  </mat-form-field>
+  <div *ngIf="email.invalid && (email.dirty || email.touched)"
+       class="alert alert-danger">
+    <div *ngIf = "email.errors?.required">
+      <span class="error">Email field can't be blank</span>
+    </div>
+    <div *ngIf = "email.errors?.pattern && email.touched">
+      <span class="error">The email id doesn't seem right</span>
+    </div>
+  </div>
+  <br />
+  <mat-form-field  class="formfield" appearance="outline">
+    <mat-label>Password</mat-label>
+    <input matInput ngModel #password="ngModel" name="password" minlength="4" placeholder="Enter" required/>
+  </mat-form-field>
+  <div *ngIf = "errors.length > 0">
+    <span class="error">{{errors}}</span>
+  </div>
+
+  <br />
+  <button type="submit" [disabled]="!f.valid" mat-raised-button>Signup</button>
+
+
+</form>

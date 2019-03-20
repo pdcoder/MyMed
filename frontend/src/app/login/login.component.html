@@ -1,0 +1,35 @@
+<form #f = "ngForm"  (ngSubmit)="onFormSubmit(f)" novalidate>
+
+  <mat-form-field class="formfield" appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="Enter" name="email" ngModel #email = "ngModel"  required  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" />
+
+  </mat-form-field>
+
+
+  <div *ngIf = "email.touched && email.errors?.pattern">
+    <span class="error">The email id doesn't seem right</span>
+  </div>
+  <div *ngIf = "email.touched && email.errors?.required">
+    <span class="error">The email cannot be empty</span>
+  </div>
+
+  <br />
+  <mat-form-field  class="formfield" appearance="outline">
+    <mat-label>Password</mat-label>
+    <input matInput ngModel #password="ngModel" name="password" minlength="4" placeholder="Enter" required/>
+  </mat-form-field>
+
+  <div *ngIf = "password.invalid && password.touched">
+    <span class="error">The password is wrong</span>
+  </div>
+  <div *ngIf = "errors.length > 0">
+    <span class="error">{{errors}}</span>
+  </div>
+<br />
+
+
+  <button mat-raised-button [disabled]="!f.valid">Login</button>
+
+
+</form>

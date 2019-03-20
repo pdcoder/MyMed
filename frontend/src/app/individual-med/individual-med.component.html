@@ -1,0 +1,40 @@
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<div id="wrap">
+  <div id="product_layout_1">
+    <div class="top">
+      <div class="product_images">
+        <div class="product_image_1">
+          <img src = {{message.image}} alt="image"/>
+        </div>
+      </div>
+      <div class="product_info">
+        <h1>{{message.name}}</h1>
+        <div class="price">
+          <h4 class="original_price">{{message.price + 140 | currency : 'INR'}}</h4>
+          <br/>
+          <h4 class="sale_price">{{message.price | currency : 'INR'}}</h4>
+        </div>
+        <div class="product_description">
+          <p>{{message.desc}}</p>
+        </div>
+        <div class="related_info">
+          <span class="sku">SKU:1234567</span><span class="quantity">QTY Left:{{message.qty}}</span>
+        </div>
+        <div class="options">
+          <div class="buying">
+            <div class="quantity">
+              <label for="quantity">QTY:</label>
+              <input type="text">
+            </div>
+            <div class="cart">
+              <a href="#" class="add">Add to Cart <i class="fa fa-shopping-cart fa-lg"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="social">
+          <span class="share">Share This:</span><span class="buttons"><img src="https://i.imgur.com/M8D8rr8.jpg"/></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+form{
+  margin: 20px auto;
+  text-align: center;
+  display: block;
+
+}
+.formfield{
+  text-align: center;
+}
+.error{
+  color: red;
+}
