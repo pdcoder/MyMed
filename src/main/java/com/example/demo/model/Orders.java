@@ -7,6 +7,7 @@ import java.sql.Time;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -31,6 +32,13 @@ public class Orders {
     @Builder.Default
     private String time = timeFormat.format(dates);
 
+    @ElementCollection
+    private List<String> names;
+
+    @ElementCollection
+    private List<Integer> qty;
+
+    private Float total;
 
     private String status;
 
