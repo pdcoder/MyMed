@@ -10,7 +10,6 @@ import { FormsModule }   from '@angular/forms';
 export class SearchComponent implements OnInit {
 
 
-
   constructor() { }
 
   ngOnInit() {

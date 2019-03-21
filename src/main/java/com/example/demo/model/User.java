@@ -1,16 +1,27 @@
 package com.example.demo.model;
 
+<<<<<<< HEAD
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+=======
+>>>>>>> b729f1a3a5224a4be30e27b4b91ee172026b4ec0
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
+<<<<<<< HEAD
 
 @Entity
 @Table(name = "Users")
+=======
+/**
+ * Created by rajeevkumarsingh on 01/08/17.
+ */
+
+@Entity
+>>>>>>> b729f1a3a5224a4be30e27b4b91ee172026b4ec0
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,6 +50,18 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     private Cart cart;
 
+<<<<<<< HEAD
+=======
+
+    public Set<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(Set<Appointment> appointments) {
+        this.appointments = appointments;
+    }
+
+>>>>>>> b729f1a3a5224a4be30e27b4b91ee172026b4ec0
     public Long getId() {
         return id;
     }
@@ -86,6 +109,7 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+<<<<<<< HEAD
 
     public Set<Appointment> getAppointments() {
         return appointments;
@@ -110,4 +134,6 @@ public class User {
     public void setCart(Cart cart) {
         this.cart = cart;
     }
+=======
+>>>>>>> b729f1a3a5224a4be30e27b4b91ee172026b4ec0
 }
