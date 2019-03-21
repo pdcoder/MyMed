@@ -33,6 +33,7 @@ import { SearchComponent } from './search/search.component';
 import { SearchdDirective } from './searchd.directive';
 import { ChkoutDirective } from './chkout.directive';
 import { CartanimationComponent } from './cartanimation/cartanimation.component';
+import { AnimateComponent } from './animate/animate.component';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { CartanimationComponent } from './cartanimation/cartanimation.component'
     SearchdDirective,
     ChkoutDirective,
     CartanimationComponent,
+    AnimateComponent,
 
   ],
   imports: [

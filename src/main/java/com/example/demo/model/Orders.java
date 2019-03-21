@@ -11,26 +11,16 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Getter
-@Setter
+@Getter(AccessLevel.PUBLIC)
+@Setter(AccessLevel.PUBLIC)
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
 public class Orders {
 
-    Date dates = new Date();
-    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-
     @Id
     @GeneratedValue
     private Long id;
-
-    @Builder.Default
-    private String date = dateFormat.format(dates);
-
-    @Builder.Default
-    private String time = timeFormat.format(dates);
 
     @ElementCollection
     private List<String> names;
@@ -38,9 +28,15 @@ public class Orders {
     @ElementCollection
     private List<Integer> qty;
 
-    private Float total;
+    private String dateOrder;
+
+    private  String timeOrder;
+
+    private float sum;
 
     private String status;
+
+    private  String email;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -8,10 +8,10 @@ $font-bold: 'HelveticaNeue-Medium', 'Helvetica Neue Medium';
 
 /* Global "table" column settings */
 .product-image { float: left; width: 20%; }
-.product-details { float: left; width: 37%; }
+.product-details { float: left; width: 25%; }
 .product-price { float: left; width: 12%; }
-.product-quantity { float: left; width: 10%; }
-.product-removal { float: left; width: 9%; }
+.product-quantity { float: left; width: 16%; }
+.product-removal { float: left; width: 15%; }
 .product-line-price { float: left; width: 12%; text-align: right; }
 
 
@@ -196,7 +196,8 @@ label {
 .product-quantity {
   width: 100px;
 input {
-  margin-left: 20px;
+  margin-left: 0px;
+  border: 1px solid greenyellow;
 }
 }
 

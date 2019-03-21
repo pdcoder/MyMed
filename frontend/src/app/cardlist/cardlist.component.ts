@@ -15,6 +15,7 @@ export class CardlistComponent implements OnInit {
   cardimage : string = '';
   medicines: any = {};
   doctors : any = {};
+  currentState : string = '';
   datas ;
   constructor( private router : Router, private cartservice : CartService,private medicineservice : MedicineService,private doctorService : DoctorService,private data : DataService) {
     this.cardimage = '/assets/images/medical.jpg';
@@ -52,7 +53,12 @@ export class CardlistComponent implements OnInit {
       },
         (error)=> console.log(error)
       );
+    this.currentState = 'initial';
 
+  }
+
+  changeState() {
+    this.currentState = this.currentState === 'initial' ? 'final' : 'initial';
   }
 
 }

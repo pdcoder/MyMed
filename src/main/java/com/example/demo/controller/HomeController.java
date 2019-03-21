@@ -12,15 +12,18 @@ import com.example.demo.repository.UserRepository;
 import com.example.demo.security.JwtGenerator;
 import com.example.demo.sevice.DoctorService;
 import com.example.demo.sevice.MedicineServices;
+import com.example.demo.sevice.OrderService;
 import com.example.demo.sevice.UserServices;
-import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +31,8 @@ import java.util.List;
 @RestController
 @RequestMapping({"/api"})
 public class HomeController {
+
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 
     @Autowired
@@ -46,15 +51,18 @@ public class HomeController {
 
     private final UserServices userServices;
 
+    private final OrderService orderService ;
+
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public HomeController(/*VerificationTokenService verificationTokenService,*/ MedicineServices medicineServices, UserServices userServices, BCryptPasswordEncoder bCryptPasswordEncoder, DoctorService doctorServices) {
+    public HomeController(/*VerificationTokenService verificationTokenService,*/ OrderService orderService, MedicineServices medicineServices, UserServices userServices, BCryptPasswordEncoder bCryptPasswordEncoder, DoctorService doctorServices) {
         //  this.verificationTokenService = verificationTokenService;
         this.medicineServices = medicineServices;
         this.userServices = userServices;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.doctorServices = doctorServices;
+        this.orderService = orderService;
     }
 
     @GetMapping(path={"/"})
@@ -62,13 +70,13 @@ public class HomeController {
         return medicineServices.findAll();
     }
 
-    @PostMapping("/cart")
+   /* @PostMapping("/cart")
     public ResponseEntity<Boolean> cart(@RequestBody Cart cart)
     {
 
         cartRepository.save(cart);
         return new ResponseEntity<Boolean>(true,HttpStatus.OK);
-    }
+    }*/
 
     @GetMapping("/doclist")
     public List doclist(){
@@ -126,7 +134,16 @@ public class HomeController {
     }
 
     @PostMapping("/order")
-    public ResponseEntity<Object> order(@Valid @RequestBody Orders order){
+    public ResponseEntity order(@Valid @RequestBody Orders order){
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+
+        order.setDateOrder(String.valueOf(dateFormat.format(date)));
+        order.setTimeOrder(String.valueOf(timeFormat.format(date)));
+        order.setStatus("Accepted");
+        order.setUser(userServices.findByEmail(order.getEmail()));
+        orderService.saveOrder(order);
         CustomerrorResponse response = new CustomerrorResponse(new Date(), "Order placed","Thanks for placing order");
         return new ResponseEntity(response, HttpStatus.ACCEPTED);
     }

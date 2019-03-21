@@ -15,7 +15,6 @@
   <div class="product" *ngFor="let items of shoppingCartItems">
     <div class="product-image">
       <img src={{items.image}}>
-      <mat-icon>plus</mat-icon>
 
     </div>
     <div class="product-details">
@@ -23,15 +22,25 @@
       <p class="product-description">{{items.desc}}.</p>
     </div>
     <div class="product-price">{{items.price | currency: 'INR'}}</div>
+
     <div class="product-quantity">
+      <mat-grid-list cols="3" rowHeight="1:1">
+<mat-grid-tile>
       <button  isIconButton="true" mat-icon-button color="warn">
-        <mat-icon>favourite</mat-icon>
+        <mat-icon svgIcon="plus"></mat-icon>
       </button>
-      <input type="number" appChkout #qty1 (input)="addQty(items.id,qty1.value)" [(ngModel)]="items.nmbr"  ngModel>
+</mat-grid-tile>
+        <mat-grid-tile>
+          <input type="number" appChkout #qty1 (input)="addQty(items.id,qty1.value)" [(ngModel)]="items.nmbr" [ngStyle]="{'width' : '50px','height': '20px'}">
+        </mat-grid-tile>
+        <mat-grid-tile>
       <button mat-icon-button color="warn">
-        <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+        <mat-icon svgIcon="subtract"></mat-icon>
       </button>
+          </mat-grid-tile>
+      </mat-grid-list>
     </div>
+
     <div class="product-removal">
       <button mat-raised-button color="warn"  (click)="remove(items)">Remove</button>
     </div>

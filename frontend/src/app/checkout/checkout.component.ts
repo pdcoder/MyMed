@@ -8,6 +8,7 @@ import {MatIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ApiResponse} from "../login/ApiResponse.model";
 import {AppError} from "../app.error";
+import {LoginService} from "../login.service";
 
 @Component({
   selector: 'app-checkout',
@@ -24,10 +25,16 @@ export class CheckoutComponent implements OnInit, OnChanges {
   public errors : string = '';
   @ViewChild('totalsum') total: ElementRef;
 
-  constructor(private cartService : CartService, private http : HttpClient, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+  constructor(private authService : LoginService ,private cartService : CartService, private http : HttpClient, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
       'plus',
       sanitizer.bypassSecurityTrustResourceUrl('../assets/images/plus.svg'));
+
+    iconRegistry.addSvgIcon(
+      'subtract',
+      sanitizer.bypassSecurityTrustResourceUrl('../assets/images/negative.svg'));
+
+
     this.shoppingCartItems$ = this
       .cartService
       .getItems();
@@ -55,7 +62,7 @@ export class CheckoutComponent implements OnInit, OnChanges {
   }
 
   order() {
-    console.log(this.shoppingCartItems);
+    console.log((this.total.nativeElement.innerText).substr(1));
     this.shoppingCartItems.map(_ => {
       this.names.push(_.name);
       this.qty.push(_.nmbr);
@@ -63,7 +70,8 @@ export class CheckoutComponent implements OnInit, OnChanges {
     this.http.post<ApiResponse>('/api/order', {
       names: this.names,
       qty: this.qty,
-      sum: this.total.nativeElement.innerText
+      sum: parseFloat((this.total.nativeElement.innerText).substr(1)),
+      email: this.authService.getEmail()
     }).catch((error: Response) => {
       return Observable.throwError(new AppError(error))
     })
@@ -78,7 +86,8 @@ export class CheckoutComponent implements OnInit, OnChanges {
     this.shoppingCartItems.map(_ => {
       this.sum += (_.price * _.nmbr) ;
     });
-    console.log(this.sum+"prakash");
+    this.names= [];
+    this.qty = [];
   }
    ngOnChanges(){}
 

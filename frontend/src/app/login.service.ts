@@ -22,6 +22,14 @@ export class LoginService {
     this.authenticated.next(true);
   }
 
+  storeEmail(email : string)
+  {
+    localStorage.setItem("email", email);
+  }
+
+  getEmail(){
+    return localStorage.getItem('email');
+  }
   logout()
   {
     localStorage.removeItem('token');
