@@ -25,7 +25,8 @@
 
   <div fxFlex fxShow=”true” fxHide.lt-md=”true”>
 
-<app-search (searchText)="getNotification($event)"></app-search>
+    <app-search (searchText)="getNotification($event)"></app-search>
+
   </div>
   <span class="spacer"></span>
   <div fxFlex fxShow=”true” fxHide.lt-md=”true”>
@@ -53,6 +54,7 @@
   </div>
 </mat-toolbar>
 </div>
+
 <li *ngFor="let c of characters | filter : search">
   {{c}}
 </li>

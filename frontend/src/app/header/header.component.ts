@@ -3,6 +3,8 @@ import {LoginService} from "../login.service";
 import { LimitPipe} from '../limit.pipe';
 import {Observable, of} from "rxjs";
 import {Medicine} from "../cardlist/medicine.model";
+import {MedicineService} from "../cardlist/medicine.service";
+import {DoctorService} from "../doctor.service";
 
 @Component({
   selector: 'app-header',
@@ -14,33 +16,40 @@ export class HeaderComponent implements OnInit, OnChanges {
   isAuthenticated : boolean;
   searchText : string ;
   search : string;
+  characters : string[] = [];
+  medicines : any  ={};
+  i : number = 0;
+  doctors : any = {};
   public searches$: Observable<string> = of("");
   @Output() clickEvent = new EventEmitter();
 
-  characters  =[
-    'Finn the human',
-    'Jake the dog',
-    'Princess bubblegum',
-    'Lumpy Space Princess',
-    'Beemo1',
-    'Beemo2'
-  ];
-  constructor(private auth : LoginService) {
+  constructor(private auth : LoginService, private medicineservice : MedicineService,private doctorService : DoctorService) {
     this.auth.getAuth().subscribe(res => this.isAuthenticated = res);
      this.searches$.subscribe(_ => this.search = _);
+    this.medicineservice.getMedicines()
+      .subscribe( (datas) => {
+
+          this.medicines = datas;
+        },
+        (error)=> console.log(error)
+      );
+
   }
 
   getNotification(event){
     this.search  = event;
-    console.log(this.search);
   }
   ngOnInit() {
-    console.log("hello"+this.search);
-  }
+
+      this.characters.push('Calpol');
+    this.characters.push('Saridon');
+    }
+
 
   ngOnChanges(){
     console.log("hello"+this.search);
   }
+
   logout()
   {
     this.auth.logout();

@@ -34,6 +34,8 @@ import { SearchdDirective } from './searchd.directive';
 import { ChkoutDirective } from './chkout.directive';
 import { CartanimationComponent } from './cartanimation/cartanimation.component';
 import { AnimateComponent } from './animate/animate.component';
+import { NgAisModule } from 'angular-instantsearch';
+import { SrchComponent } from './srch/srch.component';
 
 
 @NgModule({
@@ -60,6 +62,7 @@ import { AnimateComponent } from './animate/animate.component';
     ChkoutDirective,
     CartanimationComponent,
     AnimateComponent,
+    SrchComponent,
 
   ],
   imports: [
@@ -72,7 +75,8 @@ import { AnimateComponent } from './animate/animate.component';
     FormsModule,
     FontAwesomeModule,
     FlexLayoutModule,
-    FormsModule
+    FormsModule,
+    NgAisModule.forRoot()
 
   ],
   providers: [LoginService, AuthGuard, {provide: ErrorHandler, useClass: AppErrorHandler}],

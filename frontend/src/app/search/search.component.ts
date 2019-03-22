@@ -16,4 +16,11 @@ export class SearchComponent implements OnInit {
 
   }
 
+  @Output() searchText : EventEmitter<string> = new EventEmitter();
+
+
+  @HostListener('keyup', ['$event']) change(event : any) {
+    this.searchText.emit(event.target.value);
+  }
+
 }
