@@ -28,4 +28,5 @@ public class Appointment {
 
     private String date;
 
+
 }

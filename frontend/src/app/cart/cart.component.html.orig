@@ -1,2 +1,0 @@
-<a routerLink="/checkout"><mat-icon matBadgeColor="accent" matBadge="{{(shoppingCartItems$ | async).length}}" matBadgePosition="above after"><fa-icon [icon]="faCartPlus"></fa-icon>
-</mat-icon></a>

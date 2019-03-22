@@ -14,7 +14,3 @@ public class DemoApplicationTests {
     }
 
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> b729f1a3a5224a4be30e27b4b91ee172026b4ec0

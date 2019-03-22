@@ -73,7 +73,6 @@ public class HomeController {
    /* @PostMapping("/cart")
     public ResponseEntity<Boolean> cart(@RequestBody Cart cart)
     {
-
         cartRepository.save(cart);
         return new ResponseEntity<Boolean>(true,HttpStatus.OK);
     }*/
@@ -124,7 +123,7 @@ public class HomeController {
             userServices.saveUser(user);
             CustomerrorResponse errorDetails = new CustomerrorResponse(new Date(), "Signup Successful",
                     "Thanks for Signing up");
-           // verificationTokenService.createVerification(user.getEmail());
+            // verificationTokenService.createVerification(user.getEmail());
             return new ResponseEntity(errorDetails, HttpStatus.ACCEPTED);
         }
         else{

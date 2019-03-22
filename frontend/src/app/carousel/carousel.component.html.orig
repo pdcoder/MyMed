@@ -1,3 +1,0 @@
-<div>
-  <img [src]="imagepath" [alt]="Home">
-</div>

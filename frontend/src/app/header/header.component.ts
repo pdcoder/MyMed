@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import {Component, OnInit, OnChanges, Output, EventEmitter} from '@angular/core';
 import {LoginService} from "../login.service";
 import { LimitPipe} from '../limit.pipe';
 import {Observable, of} from "rxjs";
@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit, OnChanges {
   searchText : string ;
   search : string;
   public searches$: Observable<string> = of("");
-
+  @Output() clickEvent = new EventEmitter();
 
   characters  =[
     'Finn the human',
@@ -44,5 +44,10 @@ export class HeaderComponent implements OnInit, OnChanges {
   logout()
   {
     this.auth.logout();
+  }
+
+  sidenav()
+  {
+    this.clickEvent.emit();
   }
 }

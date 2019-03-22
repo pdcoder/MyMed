@@ -1,12 +1,18 @@
 package com.example.demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import lombok.*;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Set;
 
 @Entity
+@Getter(AccessLevel.PUBLIC)
+@Setter(AccessLevel.PUBLIC)
+@NoArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class Doctor {
 
     @Id
@@ -24,63 +30,10 @@ public class Doctor {
 
     private String description;
 
+    @ElementCollection
+    private List<AppointmentDate> apptdate;
 
-    @OneToMany(mappedBy = "doctor")
+    @ManyToMany(mappedBy = "doctor")
     private Set<Appointment> appointments;
 
-    public String getSpeciality() {
-        return speciality;
-    }
-
-    public void setSpeciality(String speciality) {
-        this.speciality = speciality;
-    }
-
-    public Set<Appointment> getAppointments() {
-        return appointments;
-    }
-
-    public void setAppointments(Set<Appointment> appointments) {
-        this.appointments = appointments;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getVisit() {
-        return visit;
-    }
-
-    public void setVisit(String visit) {
-        this.visit = visit;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

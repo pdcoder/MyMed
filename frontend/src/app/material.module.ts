@@ -13,7 +13,10 @@ import {
   MatBadgeModule,
   MatGridListModule,
   MatStepperModule,
-  MatExpansionModule, MatIconModule,
+  MatExpansionModule,
+  MatIconModule,
+  MatSelectModule,
+  MatListModule
 } from "@angular/material";
 
 @NgModule({
@@ -34,6 +37,8 @@ import {
     MatStepperModule,
     MatExpansionModule,
     MatSidenavModule,
+    MatSelectModule,
+    MatListModule
   ]
 })
 export class AngularMaterialModule {}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit} from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {animate, state, style, transition, trigger} from "@angular/animations";
 
@@ -14,16 +14,24 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
       state('final', style({
         display: 'block'
       })),
-      transition('initial=>final', animate('1500ms')),
-      transition('final=>initial', animate('1000ms'))
+      transition('initial=>final', animate('0ms ease')),
+      transition('final=>initial', animate('0ms 200ms ease'))
     ]),
   ]
 })
-export class AnimateComponent implements OnInit {
+export class AnimateComponent implements OnInit{
 
-  constructor() { }
-
+  constructor(public el: ElementRef<HTMLElement>) { }
+   currentstate : string ='';
   ngOnInit() {
+    this.currentstate = 'initial';
   }
 
+  @HostListener('mouseover') onMouseOver() {
+    this.currentstate = 'initial';
+  }
+
+  @HostListener('mouseout') onMouseOut() {
+    this.currentstate = 'final';
+  }
 }

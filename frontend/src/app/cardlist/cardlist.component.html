@@ -19,18 +19,32 @@
 
 <h2>Book an Appointment</h2>
 <div class="center">
-  <mat-card  appHoverover  *ngFor="let doctor of doctors | slice:0:3">
+  <mat-card  *ngFor="let doctor of doctors | slice:0:3" [ngStyle] = "{'box-shadow': '2px 2px 2px 2px grey'}">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title>Dr. {{doctor.name}}</mat-card-title>
       <mat-card-subtitle>{{doctor.speciality}}</mat-card-subtitle>
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content [@hover]="currentstate">
       <span>Visit : {{doctor.visit | currency : 'INR'}}</span>
-      <p [@hover]="currentState">{{doctor.description}}</p>
+      <p  >{{doctor.description}}</p>
+      <mat-form-field>
+        <mat-label>Select Date</mat-label>
+       <mat-select class="select">
+      <mat-option *ngFor="let days of doctor.apptdate; let i = index" [value]="days">
+        {{days}}
+      </mat-option>
+      </mat-select>
+      </mat-form-field>
+      <button [ngStyle] = "{'width': '100%', 'background-color' : 'blue', 'color' : 'white'}" mat-raised-button>Book</button>
     </mat-card-content>
   </mat-card>
 </div>
 <br/>
 <a routerLink="/doclist"><button id="more" mat-raised-button [style.float]="'right'">SEE MORE</button></a>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 

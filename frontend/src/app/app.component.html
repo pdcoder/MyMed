@@ -1,3 +1,19 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav mode="over" class="sidenav">
+    <mat-list>
+      <mat-list-item> My Account </mat-list-item>
+      <mat-list-item> Orders </mat-list-item>
+      <mat-list-item> Log Out </mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+
+
+  <mat-sidenav-content>
+    <app-header (clickEvent)="sidenav.toggle()"></app-header>
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
+
+

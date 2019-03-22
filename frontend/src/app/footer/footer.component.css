@@ -1,6 +1,6 @@
 footer {
-  background-color: gold;
-  color: black;
+  background-color: #a7adba;
+  color: white;
   border-top: 1px solid #E7E7E7;
   text-align:center;
   padding:15px 0 15px 0 ;
@@ -9,5 +9,4 @@ footer {
   position: fixed;
   height: 30px;
   width: 100%;
-  margin-top: 100px;
 }

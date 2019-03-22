@@ -9,6 +9,8 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {ApiResponse} from "../login/ApiResponse.model";
 import {AppError} from "../app.error";
 import {LoginService} from "../login.service";
+import {MatSelectModule} from '@angular/material/select';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-checkout',

@@ -1,15 +1,18 @@
 <div fxShow="true" fxHide.gt-sm="true">
-  <mat-toolbar color="primary">
+  <mat-toolbar >
   <mat-toolbar-row>
    <span>
     <a routerLink="/" routerLinkActive="mat-accent">MyMed</a>
   </span>
     <span class="spacer"></span>
-    <div class="menu">
+    <div *ngIf="isAuthenticated" [ngStyle]="{'margin-right': '15px'}">
+      <app-cart></app-cart>
+    </div>
+    <button class="menu" (click)="sidenav()">
    <div></div>
       <div></div>
       <div></div>
-    </div>
+    </button>
   </mat-toolbar-row>
 </mat-toolbar>
 </div>
