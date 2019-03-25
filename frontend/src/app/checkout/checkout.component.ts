@@ -17,7 +17,7 @@ import {MatButtonModule} from '@angular/material/button';
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss']
 })
-export class CheckoutComponent implements OnInit, OnChanges {
+export class CheckoutComponent implements OnInit {
 
   public shoppingCartItems$: Observable<Medicine[]> = of([]);
   public shoppingCartItems: Medicine[] = [];
@@ -52,11 +52,32 @@ export class CheckoutComponent implements OnInit, OnChanges {
       this.sum += (_.price * _.nmbr) ;
     });
   }
+  add(id : number)
+  {
+    var qnt =  1;
+    this.cartService.incQtyByOne(id);
+    this.sum=0;
+    this.shoppingCartItems$.subscribe(_ => this.shoppingCartItems = _);
+    this.shoppingCartItems.map(_ => {
+      this.sum += (_.price * _.nmbr) ;
+    });
+  }
 
   remove(items : Medicine)
   {
     this.cartService.remove(items);
     this.sum = 0;
+    this.shoppingCartItems$.subscribe(_ => this.shoppingCartItems = _);
+    this.shoppingCartItems.map(_ => {
+      this.sum += (_.price * _.nmbr) ;
+    });
+  }
+
+  sub(id : number)
+  {
+    var qnt =  1;
+    this.cartService.decQtyByOne(id);
+    this.sum=0;
     this.shoppingCartItems$.subscribe(_ => this.shoppingCartItems = _);
     this.shoppingCartItems.map(_ => {
       this.sum += (_.price * _.nmbr) ;
@@ -91,6 +112,5 @@ export class CheckoutComponent implements OnInit, OnChanges {
     this.names= [];
     this.qty = [];
   }
-   ngOnChanges(){}
 
 }

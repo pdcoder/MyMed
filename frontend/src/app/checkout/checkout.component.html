@@ -26,7 +26,7 @@
     <div class="product-quantity">
       <mat-grid-list cols="3" rowHeight="1:1">
 <mat-grid-tile>
-      <button  isIconButton="true" mat-icon-button color="warn">
+      <button  isIconButton="true" mat-icon-button color="warn" (click)="add(items.id)">
         <mat-icon svgIcon="plus"></mat-icon>
       </button>
 </mat-grid-tile>
@@ -34,7 +34,7 @@
           <input type="number" appChkout #qty1 (input)="addQty(items.id,qty1.value)" [(ngModel)]="items.nmbr" [ngStyle]="{'width' : '50px','height': '20px'}">
         </mat-grid-tile>
         <mat-grid-tile>
-      <button mat-icon-button color="warn">
+      <button mat-icon-button color="warn" (click)="sub(items.id)">
         <mat-icon svgIcon="subtract"></mat-icon>
       </button>
           </mat-grid-tile>
@@ -52,7 +52,7 @@
     <div class="totals-item">
       <label>Subtotal</label>
       <div  class="totals-value" id="cart-subtotal">
-        <input disabled [ngModel]="sum | currency : 'INR'"/>
+        <div class="subtotals-value">{{sum | currency : 'INR'}}</div>
       </div>
     </div>
     <div class="totals-item">

@@ -14,7 +14,7 @@ import {FormControl} from "@angular/forms";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnChanges {
+export class HeaderComponent implements OnInit {
 
   isAuthenticated: boolean;
   searchText: string;
@@ -33,12 +33,18 @@ export class HeaderComponent implements OnInit, OnChanges {
     this.auth.getAuth().subscribe(res => this.isAuthenticated = res);
     this.searches$.subscribe(_ => this.search = _);
     this.medicineservice.getMedicines()
-      .subscribe((datas) => {
-
+      .subscribe( (datas) => {
           this.medicines = datas;
+          for(var i=0;i<this.medicines.length;i++)
+          {
+            this.states.push(this.medicines[i].name);
+          }
+
+
         },
-        (error) => console.log(error)
+        (error)=> console.log(error)
       );
+
     this.filteredStates = this.stateCtrl.valueChanges
       .pipe(
         startWith(''),
@@ -52,22 +58,12 @@ export class HeaderComponent implements OnInit, OnChanges {
     return this.states.filter(state => state.toLowerCase().indexOf(filterValue) === 0);
   }
 
-
-  getNotification(event){
-    this.search  = event;
-  }
   ngOnInit() {
+    console.log(this.states+"ddd");
 
-      this.characters.push('Calpol');
-    this.characters.push('Saridon');
-  this.states.push('Calpol');
-  this.states.push('Saridon');
-    }
-
-
-  ngOnChanges(){
-    console.log("hello"+this.search);
   }
+
+
 
   logout()
   {

@@ -54,7 +54,7 @@ export class CardlistComponent implements OnInit {
     this.doctorService.getDoctors()
       .subscribe( (data) => {
           this.doctors = data;
-          console.log(data);
+          console.log(this.doctors);
         },
         (error)=> console.log(error)
       );
