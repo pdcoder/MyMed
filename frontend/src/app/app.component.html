@@ -1,9 +1,25 @@
 <mat-sidenav-container class="example-container">
   <mat-sidenav #sidenav mode="over" class="sidenav">
     <mat-list>
-      <mat-list-item> My Account </mat-list-item>
-      <mat-list-item> Orders </mat-list-item>
-      <mat-list-item> Log Out </mat-list-item>
+
+        <mat-list-item *ngIf="isAuthenticated">
+          <a mat-button routerLink="/home" routerLinkActive="mat-accent">My Account</a>
+        </mat-list-item>
+        <mat-list-item *ngIf="isAuthenticated">
+          <a mat-button routerLink="/doclist" routerLinkActive="mat-accent">Book Doc</a>
+        </mat-list-item>
+        <mat-list-item *ngIf="!isAuthenticated">
+          <a mat-button routerLink="/login" routerLinkActive="mat-accent">Login</a>
+        </mat-list-item>
+        <mat-list-item *ngIf="!isAuthenticated">
+          <a mat-button routerLink="/signup" routerLinkActive="mat-accent">Signup</a>
+        </mat-list-item>
+        <mat-list-item *ngIf="isAuthenticated">
+          <button mat-button (click)="logout()">Logout</button>
+        </mat-list-item>
+        <mat-list-item *ngIf="isAuthenticated">
+          <app-cart></app-cart>
+        </mat-list-item>
     </mat-list>
   </mat-sidenav>
 

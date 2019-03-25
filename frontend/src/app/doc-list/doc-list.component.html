@@ -5,8 +5,17 @@
     <mat-card-title>Dr. {{doctor.name}}</mat-card-title>
     <mat-card-subtitle>{{doctor.speciality}}</mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content>
+  <mat-card-content >
     <span>Visit : {{doctor.visit | currency : 'INR'}}</span>
 <p [style.display]="'none'" class="card">{{doctor.description}}</p>
+    <mat-form-field [ngStyle] = "{'width': '100%'}">
+      <mat-label>Select Date</mat-label>
+      <mat-select #select>
+        <mat-option  *ngFor="let days of doctor.apptdate; let i = index" [value]="days">
+          {{days}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button (click)="bookDoc(doctor.id,select.value)" [ngStyle] = "{'width': '100%', 'background-color' : 'blue', 'color' : 'white'}" mat-raised-button>Book</button>
   </mat-card-content>
 </mat-card>

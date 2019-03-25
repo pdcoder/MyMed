@@ -8,6 +8,11 @@ import {DoctorService} from "../doctor.service";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {ApiResponse} from "../login/ApiResponse.model";
+import {Observable} from "rxjs";
+import {AppError} from "../app.error";
+import {LoginService} from "../login.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-cardlist',
@@ -31,9 +36,10 @@ export class CardlistComponent implements OnInit {
   medicines: any = {};
   doctors : any = {};
   datas ;
+  errors : string ;
   currentstate : string ='';
 
-  constructor( private router : Router, private cartservice : CartService,private medicineservice : MedicineService,private doctorService : DoctorService,private data : DataService) {
+  constructor(private http : HttpClient, private authService : LoginService, private router : Router, private cartservice : CartService,private medicineservice : MedicineService,private doctorService : DoctorService,private data : DataService) {
     this.cardimage = '/assets/images/medical.jpg';
 
     this.medicineservice.getMedicines()
@@ -71,6 +77,34 @@ export class CardlistComponent implements OnInit {
       );
     this.currentstate = 'initial';
 
+  }
+
+  bookDoc(id : number, date : string){
+    console.log(date);
+    this.http.post<ApiResponse>('/api/bookdoc', {
+      docid : id,
+      date : date,
+      email: this.authService.getEmail()
+    }).catch((error: Response) => {
+
+      return Observable.throwError(new AppError(error))})
+      .subscribe((response : ApiResponse) => {
+        this.errors = response.message;
+        if(this.errors === 'Appointment reserved'){
+          alert("Sucessfull");
+        }
+        else
+        {
+          alert("failed");
+          this.errors = response.message;
+        }
+      }, (err : AppError) => {
+        console.log("sub error");
+
+        this.errors = err.message;
+        throw err;
+
+      });
   }
 
   @HostListener('mouseover') onMouseOver() {

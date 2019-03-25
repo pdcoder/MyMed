@@ -6,7 +6,7 @@ import {RouterModule} from "@angular/router";
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from "@angular/flex-layout";
-
+import { ReactiveFormsModule } from '@angular/forms';
 import {AppComponent } from './app.component';
 import {HeaderComponent } from './header/header.component';
 import {CarouselComponent } from './carousel/carousel.component';
@@ -76,6 +76,7 @@ import { SrchComponent } from './srch/srch.component';
     FontAwesomeModule,
     FlexLayoutModule,
     FormsModule,
+    ReactiveFormsModule,
     NgAisModule.forRoot()
 
   ],

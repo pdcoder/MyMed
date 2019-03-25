@@ -23,20 +23,20 @@
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title>Dr. {{doctor.name}}</mat-card-title>
-      <mat-card-subtitle>{{doctor.speciality}}</mat-card-subtitle>
+      <mat-card-subtitle>{{doc2tor.speciality}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content [@hover]="currentstate">
       <span>Visit : {{doctor.visit | currency : 'INR'}}</span>
       <p  >{{doctor.description}}</p>
-      <mat-form-field>
+      <mat-form-field [ngStyle] = "{'width': '100%'}">
         <mat-label>Select Date</mat-label>
-       <mat-select class="select">
+        <mat-select #date>
       <mat-option *ngFor="let days of doctor.apptdate; let i = index" [value]="days">
         {{days}}
       </mat-option>
       </mat-select>
       </mat-form-field>
-      <button [ngStyle] = "{'width': '100%', 'background-color' : 'blue', 'color' : 'white'}" mat-raised-button>Book</button>
+      <button (click)="bookDoc(doctor.id, date.value)" [ngStyle] = "{'width': '100%', 'background-color' : 'blue', 'color' : 'white'}" mat-raised-button>Book</button>
     </mat-card-content>
   </mat-card>
 </div>

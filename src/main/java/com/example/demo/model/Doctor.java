@@ -16,7 +16,8 @@ import java.util.Set;
 public class Doctor {
 
     @Id
-    private Long id;
+    @GeneratedValue
+    private int id;
 
     @NotNull
     private String name;
@@ -33,7 +34,7 @@ public class Doctor {
     @ElementCollection
     private List<AppointmentDate> apptdate;
 
-    @ManyToMany(mappedBy = "doctor")
+    @OneToMany
     private Set<Appointment> appointments;
 
 }

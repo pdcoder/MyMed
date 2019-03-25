@@ -18,9 +18,9 @@ public class Appointment {
     @GeneratedValue
     private Long id;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "doctor_id",nullable = false)
-    private Set<Doctor> doctor ;
+    private Doctor doctor ;
 
     @OneToOne
     @JoinColumn(name = "user_id",nullable = false)

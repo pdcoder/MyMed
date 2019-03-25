@@ -3,17 +3,11 @@ package com.example.demo.controller;
 import com.example.demo.exceptions.CustomerrorResponse;
 import com.example.demo.exceptions.UserExistsException;
 import com.example.demo.exceptions.UserNotFoundException;
-import com.example.demo.model.Cart;
-import com.example.demo.model.JwtUser;
-import com.example.demo.model.Orders;
-import com.example.demo.model.User;
+import com.example.demo.model.*;
 import com.example.demo.repository.CartRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.JwtGenerator;
-import com.example.demo.sevice.DoctorService;
-import com.example.demo.sevice.MedicineServices;
-import com.example.demo.sevice.OrderService;
-import com.example.demo.sevice.UserServices;
+import com.example.demo.sevice.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @CrossOrigin
@@ -51,22 +46,25 @@ public class HomeController {
 
     private final UserServices userServices;
 
-    private final OrderService orderService ;
+    private final OrderService orderService;
+
+    private final AppointmentService appointmentService;
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public HomeController(/*VerificationTokenService verificationTokenService,*/ OrderService orderService, MedicineServices medicineServices, UserServices userServices, BCryptPasswordEncoder bCryptPasswordEncoder, DoctorService doctorServices) {
+    public HomeController(/*VerificationTokenService verificationTokenService,*/ AppointmentService appointmentService, OrderService orderService, MedicineServices medicineServices, UserServices userServices, BCryptPasswordEncoder bCryptPasswordEncoder, DoctorService doctorServices) {
         //  this.verificationTokenService = verificationTokenService;
         this.medicineServices = medicineServices;
         this.userServices = userServices;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.doctorServices = doctorServices;
         this.orderService = orderService;
+        this.appointmentService = appointmentService;
     }
 
-    @GetMapping(path={"/"})
-    public List getMedicineList(){
+    @GetMapping(path = {"/"})
+    public List getMedicineList() {
         return medicineServices.findAll();
     }
 
@@ -78,23 +76,21 @@ public class HomeController {
     }*/
 
     @GetMapping("/doclist")
-    public List doclist(){
+    public List doclist() {
         return doctorServices.findAll();
     }
 
     @GetMapping("/medlist")
-    public List medList(){
+    public List medList() {
         return medicineServices.findAll();
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login( @Valid @RequestBody JwtUser jwtUser ){
+    public ResponseEntity<Object> login(@Valid @RequestBody JwtUser jwtUser) {
 
 
-        if(userServices.findByEmail(jwtUser.getEmail())!= null)
-        {
-            if(bCryptPasswordEncoder.matches(jwtUser.getPasswordfield(),userServices.checkPassword(jwtUser.getEmail())))
-            {
+        if (userServices.findByEmail(jwtUser.getEmail()) != null) {
+            if (bCryptPasswordEncoder.matches(jwtUser.getPasswordfield(), userServices.checkPassword(jwtUser.getEmail()))) {
                 User jwtmail = userServices.findByEmail(jwtUser.getEmail());
                 jwtUser.setUsername(jwtmail.getUsername());
                 jwtUser.setId(jwtmail.getId());
@@ -103,21 +99,18 @@ public class HomeController {
 
 
                 return ResponseEntity.ok(errorDetails);
-            }
-            else{
+            } else {
                 throw new UserNotFoundException("Wrong Credentials");
             }
-        }
-        else {
+        } else {
             throw new UserNotFoundException("Mail Id does not exist");
         }
     }
 
 
-
     @PostMapping("/signup")
-    public ResponseEntity<Object> signup( @Valid @RequestBody User user){
-        if(userServices.findByEmail(user.getEmail())== null){
+    public ResponseEntity<Object> signup(@Valid @RequestBody User user) {
+        if (userServices.findByEmail(user.getEmail()) == null) {
             user.setPasswordfield(bCryptPasswordEncoder.encode(user.getPasswordfield()));
 
             userServices.saveUser(user);
@@ -125,15 +118,14 @@ public class HomeController {
                     "Thanks for Signing up");
             // verificationTokenService.createVerification(user.getEmail());
             return new ResponseEntity(errorDetails, HttpStatus.ACCEPTED);
-        }
-        else{
+        } else {
 
             throw new UserExistsException("EmailId already Exists");
         }
     }
 
     @PostMapping("/order")
-    public ResponseEntity order(@Valid @RequestBody Orders order){
+    public ResponseEntity order(@Valid @RequestBody Orders order) {
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
@@ -143,14 +135,31 @@ public class HomeController {
         order.setStatus("Accepted");
         order.setUser(userServices.findByEmail(order.getEmail()));
         orderService.saveOrder(order);
-        CustomerrorResponse response = new CustomerrorResponse(new Date(), "Order placed","Thanks for placing order");
+        CustomerrorResponse response = new CustomerrorResponse(new Date(), "Order placed", "Thanks for placing order");
         return new ResponseEntity(response, HttpStatus.ACCEPTED);
     }
 
+    @PostMapping("/bookdoc")
+    public ResponseEntity order(@Valid @RequestBody AppointmentDAO appointmentdao, Appointment appointment) {
+        int flg = 0;
+        appointment.setDate(appointmentdao.getDate());
+        appointment.setUser(userServices.findByEmail(appointmentdao.getEmail()));
+        appointment.setDoctor(doctorServices.getDoctor(appointmentdao.getDocid()).get());
+        boolean chk = appointmentService.findById(appointmentdao.getDate(), appointmentdao.getDocid());
+        System.out.println(chk);
+        if (!chk) {
+              appointmentService.saveAppointment(appointment);
+            CustomerrorResponse response = new CustomerrorResponse(new Date(), "Appointment reserved", "Thanks for booking appointment");
+            return new ResponseEntity(response, HttpStatus.ACCEPTED);
+        } else {
+            CustomerrorResponse response = new CustomerrorResponse(new Date(), "Appointment not reserved", "Time filled");
+            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+        }
   /*  @GetMapping("/verify-email")
     @ResponseBody
     public String verifyEmail(String code) {
         return verificationTokenService.verifyEmail(code).getBody();
     }*/
 
+    }
 }
