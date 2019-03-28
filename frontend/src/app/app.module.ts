@@ -36,6 +36,8 @@ import { CartanimationComponent } from './cartanimation/cartanimation.component'
 import { AnimateComponent } from './animate/animate.component';
 import { NgAisModule } from 'angular-instantsearch';
 import { SrchComponent } from './srch/srch.component';
+import { DialogComponent } from './dialog/dialog.component';
+import { UploadComponent } from './upload/upload.component';
 
 
 @NgModule({
@@ -63,6 +65,8 @@ import { SrchComponent } from './srch/srch.component';
     CartanimationComponent,
     AnimateComponent,
     SrchComponent,
+    DialogComponent,
+    UploadComponent,
 
   ],
   imports: [
@@ -81,6 +85,7 @@ import { SrchComponent } from './srch/srch.component';
 
   ],
   providers: [LoginService, AuthGuard, {provide: ErrorHandler, useClass: AppErrorHandler}],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogComponent],
 })
 export class AppModule { }

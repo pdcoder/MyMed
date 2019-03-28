@@ -1,27 +1,27 @@
-<mat-grid-list cols="3" rowHeight="1:1">
-  <mat-grid-tile>
-    <div>
-      <img
+<mat-grid-list cols="3" rowHeight="1:1" >
+  <mat-grid-tile [colspan]="1">
 
-        [src]="'https://ssl.gstatic.com/images/branding/product/1x/avatar_square_blue_512dp.png'" [alt]="avatar"/>
-    </div>
+    <app-upload></app-upload>
   </mat-grid-tile>
+  <mat-grid-tile [colspan]="2" [ngStyle]="{'width' : '100%'}">
+    <h2>Your orders</h2>
+    <br/>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false"
+                         *ngFor="let item of order"
+                         [ngStyle]="{'width' : '100%'}">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{item.name}}
+        </mat-panel-title>
+        <mat-panel-description>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <b>Date :</b><span [ngStyle]="{'float':'right'}">{{item.date}}</span><br />
+      <b>Time :</b> <span [ngStyle]="{'float':'right'}">{{item.time}}</span><br />
+      <b>Order value :</b><span [ngStyle]="{'float':'right'}"> Rs.{{item.sum}}</span>
+    </mat-expansion-panel>
 
-  <mat-grid-tile>
-    <h3>Your orders</h3>
-    <mat-vertical-stepper>
-      <mat-step label="Step 1" >
-        <p>Put down your phones.</p>
-      </mat-step>
-      <mat-step label="Step 2" >
-        <p>Socialize with each other.</p>
-      </mat-step>
-      <mat-step label="Step 3">
-        <p>You're welcome.</p>
-      </mat-step>
-
-      <!-- Icon overrides. -->
-
-    </mat-vertical-stepper>
   </mat-grid-tile>
+  <br/>
 </mat-grid-list>

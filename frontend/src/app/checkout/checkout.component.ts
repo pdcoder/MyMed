@@ -4,13 +4,14 @@ import {Medicine} from "../cardlist/medicine.model";
 import {CartService} from "../cart.service";
 import {HttpClient} from "@angular/common/http";
 import {MatIconModule} from '@angular/material/icon';
-import {MatIconRegistry} from '@angular/material';
+import {MatDialog, MatIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ApiResponse} from "../login/ApiResponse.model";
 import {AppError} from "../app.error";
 import {LoginService} from "../login.service";
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
+import {DialogComponent} from "../dialog/dialog.component";
 
 @Component({
   selector: 'app-checkout',
@@ -25,9 +26,11 @@ export class CheckoutComponent implements OnInit {
   public names : string[] = [];
   public qty: number[] = [];
   public errors : string = '';
+  animal: string;
+  name: string;
   @ViewChild('totalsum') total: ElementRef;
 
-  constructor(private authService : LoginService ,private cartService : CartService, private http : HttpClient, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+  constructor(public dialog: MatDialog,private authService : LoginService ,private cartService : CartService, private http : HttpClient, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
       'plus',
       sanitizer.bypassSecurityTrustResourceUrl('../assets/images/plus.svg'));
@@ -40,6 +43,26 @@ export class CheckoutComponent implements OnInit {
     this.shoppingCartItems$ = this
       .cartService
       .getItems();
+  }
+
+  order() {
+    console.log((this.total.nativeElement.innerText).substr(1));
+    this.shoppingCartItems.map(_ => {
+      this.names.push(_.name);
+      this.qty.push(_.nmbr);
+    });
+    this.http.post<ApiResponse>('/api/order', {
+      names: this.names,
+      qty: this.qty,
+      sum: parseFloat((this.total.nativeElement.innerText).substr(1)),
+      email: this.authService.getEmail()
+    }).catch((error: Response) => {
+      return Observable.throwError(new AppError(error))
+    })
+      .subscribe((response: ApiResponse) => {
+        this.errors = response.message;
+        console.log(this.errors);
+      });
   }
 
   addQty(id : number, qty : number)
@@ -61,6 +84,7 @@ export class CheckoutComponent implements OnInit {
     this.shoppingCartItems.map(_ => {
       this.sum += (_.price * _.nmbr) ;
     });
+    console.log(this.shoppingCartItems);
   }
 
   remove(items : Medicine)
@@ -84,25 +108,15 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  order() {
-    console.log((this.total.nativeElement.innerText).substr(1));
-    this.shoppingCartItems.map(_ => {
-      this.names.push(_.name);
-      this.qty.push(_.nmbr);
+
+
+  openDialog() {
+    const dialogRef = this.dialog.open(DialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
     });
-    this.http.post<ApiResponse>('/api/order', {
-      names: this.names,
-      qty: this.qty,
-      sum: parseFloat((this.total.nativeElement.innerText).substr(1)),
-      email: this.authService.getEmail()
-    }).catch((error: Response) => {
-      return Observable.throwError(new AppError(error))
-    })
-      .subscribe((response: ApiResponse) => {
-        this.errors = response.message;
-        console.log(this.errors);
-      });
-    }
+  }
 
   ngOnInit() {
     this.shoppingCartItems$.subscribe(_ => this.shoppingCartItems = _);

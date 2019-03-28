@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Finalize your order</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>Review Your Order</h3>
+  <div *ngFor="let items of shoppingCartItems">
+  <div>
+      {{items.name}}rr
+  </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="order()">Order</button>
+</mat-dialog-actions>

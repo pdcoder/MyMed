@@ -1,11 +1,12 @@
 <h2>List of all our Doctors</h2>
-<mat-card  appHoverover  *ngFor="let doctor of doctors">
+<mat-card  [@hover]="currentstate" *ngFor="let doctor of doctors">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>Dr. {{doctor.name}}</mat-card-title>
-    <mat-card-subtitle>{{doctor.speciality}}</mat-card-subtitle>
+    <mat-card-subtitle>{{doctor.specialty}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content >
+    <p>{{doctor.description}}</p>
     <span>Visit : {{doctor.visit | currency : 'INR'}}</span>
 <p [style.display]="'none'" class="card">{{doctor.description}}</p>
     <mat-form-field [ngStyle] = "{'width': '100%'}">

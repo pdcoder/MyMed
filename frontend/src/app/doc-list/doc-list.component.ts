@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {DoctorService} from "../doctor.service";
 import {NgForm} from "@angular/forms";
 import {ApiResponse} from "../login/ApiResponse.model";
@@ -6,16 +6,30 @@ import {Observable} from "rxjs";
 import {AppError} from "../app.error";
 import {LoginService} from "../login.service";
 import {HttpClient} from "@angular/common/http";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-doc-list',
   templateUrl: './doc-list.component.html',
-  styleUrls: ['./doc-list.component.css']
+  styleUrls: ['./doc-list.component.css'],
+  animations: [
+    trigger('hover', [
+      state('initial', style({
+        boxShadow : 'none'
+      })),
+      state('final', style({
+        boxShadow : '1px 1px 2px black, 0 0 10px blue, 0 0 5px lightblue'
+      })),
+      transition('initial=>final', animate('0ms ease')),
+      transition('final=>initial', animate('0ms 500ms ease'))
+    ]),
+  ]
 })
 export class DocListComponent implements OnInit {
 
   doctors : any = {}
   errors : string;
+  currentstate : string ;
   constructor(private http : HttpClient, private docService : DoctorService, private authService : LoginService) {
 
     this.docService.getDoctors().subscribe((data) => {
@@ -55,5 +69,13 @@ export class DocListComponent implements OnInit {
         throw err;
 
       });
+  }
+
+  @HostListener('mouseover') onMouseOver() {
+    this.currentstate = 'final';
+  }
+
+  @HostListener('mouseout') onMouseOut() {
+    this.currentstate = 'initial';
   }
 }

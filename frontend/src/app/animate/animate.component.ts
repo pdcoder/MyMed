@@ -9,10 +9,10 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
   animations: [
     trigger('hover', [
       state('initial', style({
-        display: 'none'
+        boxShadow : 'none'
       })),
       state('final', style({
-        display: 'block'
+        boxShadow : '1px 1px 2px black, 0 0 10px blue, 0 0 5px darkblue'
       })),
       transition('initial=>final', animate('0ms ease')),
       transition('final=>initial', animate('0ms 200ms ease'))

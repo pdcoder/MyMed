@@ -21,13 +21,13 @@ import {HttpClient} from "@angular/common/http";
   animations: [
     trigger('hover', [
       state('initial', style({
-        opacity : 0
+        boxShadow : 'none'
       })),
       state('final', style({
-        opacity : 1
+        boxShadow : '1px 1px 2px black, 0 0 10px blue, 0 0 5px lightblue'
       })),
-      transition('initial=>final', animate('1000ms ease')),
-      transition('final=>initial', animate('1000ms  ease'))
+      transition('initial=>final', animate('0ms ease')),
+      transition('final=>initial', animate('0ms 1000ms ease'))
     ]),
   ]
 })
@@ -44,7 +44,7 @@ export class CardlistComponent implements OnInit {
 
     this.medicineservice.getMedicines()
      .subscribe( (datas) => {
-
+console.log(datas);
           this.medicines = datas;
         },
         (error)=> console.log(error)
@@ -109,9 +109,11 @@ export class CardlistComponent implements OnInit {
 
   @HostListener('mouseover') onMouseOver() {
     this.currentstate = 'final';
+    console.log("Prakash");
   }
 
   @HostListener('mouseout') onMouseOut() {
     this.currentstate = 'initial';
+    console.log("Prakash");
   }
 }

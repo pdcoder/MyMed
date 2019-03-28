@@ -19,13 +19,13 @@
 
 <h2>Book an Appointment</h2>
 <div class="center">
-  <mat-card  *ngFor="let doctor of doctors | slice:0:3" [ngStyle] = "{'box-shadow': '2px 2px 2px 2px grey'}">
+  <mat-card  *ngFor="let doctor of doctors | slice:0:3" [ngStyle] = "{'box-shadow': '2px 2px 2px 2px grey'}" [@hover]="currentstate">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title>Dr. {{doctor.name}}</mat-card-title>
       <mat-card-subtitle>{{doctor.speciality}}</mat-card-subtitle>
     </mat-card-header>
-    <mat-card-content [@hover]="currentstate">
+    <mat-card-content>
       <span>Visit : {{doctor.visit | currency : 'INR'}}</span>
       <p  >{{doctor.description}}</p>
       <mat-form-field [ngStyle] = "{'width': '100%'}">
