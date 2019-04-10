@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {HttpEventType, HttpResponse} from "@angular/common/http";
 import {UploadService} from "../upload.service";
-
+import {ProfileserviceService} from "../profile/profileservice.service";
+import {Ng4LoadingSpinnerService} from "ng4-loading-spinner";
+import {FileUploader} from "ng2-file-upload";
+import jwt_decode from 'jwt-decode' ;
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
@@ -12,29 +15,58 @@ export class UploadComponent implements OnInit {
   selectedFiles: FileList
   currentFileUpload: File
   progress: { percentage: number } = { percentage: 0 }
+  public uploader: FileUploader;
+  private hasDragOver = false;
 
-  constructor(private uploadService: UploadService) { }
+  @Input()
+  private editmode = false;
+
+  @Input()
+  private url :any = {};
+
+  @Output()
+  private urlChange = new EventEmitter();
+
+  constructor(private uploadService: UploadService, private spinnerService: Ng4LoadingSpinnerService) {
+    const token  =  localStorage.getItem('token');
+    let tokenInfo = this.getDecodedAccessToken(token);
+    let id = tokenInfo.userId;
+    this.uploader = new FileUploader({
+      url: `http://localhost:4200/api/post/${id}`,
+      disableMultipart: false,
+      autoUpload: true
+    });
+
+    this.uploadService.getFiles(id).subscribe((data) => {
+      this.url = data;
+      this.urlChange.emit(this.url);
+    });
+
+  }
+
+  getDecodedAccessToken(token: string): any {
+    try{
+      return jwt_decode(token);
+    }
+    catch(Error){
+      return null;
+    }
+  }
+
 
   ngOnInit() {
+
+  }
+
+  public fileOver(e: any): void {
+    this.hasDragOver = e;
   }
 
   selectFile(event) {
     this.selectedFiles = event.target.files;
   }
 
-  upload() {
-    this.progress.percentage = 0;
-    this.currentFileUpload = this.selectedFiles.item(0)
-    this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress) {
-        this.progress.percentage = Math.round(100 * event.loaded / event.total);
-      } else if (event instanceof HttpResponse) {
-        console.log('File is completely uploaded!');
-      }
-    })
 
-    this.selectedFiles = undefined
-  }
 
 
 }

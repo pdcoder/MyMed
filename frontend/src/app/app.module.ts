@@ -4,6 +4,8 @@ import { AngularMaterialModule } from "./material.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import {RouterModule} from "@angular/router";
 import { HttpClientModule } from '@angular/common/http';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+import { FileUploadModule } from 'ng2-file-upload';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { ReactiveFormsModule } from '@angular/forms';
@@ -81,8 +83,9 @@ import { UploadComponent } from './upload/upload.component';
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    NgAisModule.forRoot()
-
+    FileUploadModule,
+    NgAisModule.forRoot(),
+    Ng4LoadingSpinnerModule.forRoot()
   ],
   providers: [LoginService, AuthGuard, {provide: ErrorHandler, useClass: AppErrorHandler}],
   bootstrap: [AppComponent],

@@ -65,6 +65,7 @@ public class HomeController {
 
     @GetMapping(path = {"/"})
     public List getMedicineList() {
+        System.out.println(medicineServices.findAll());
         return medicineServices.findAll();
     }
 
@@ -161,5 +162,13 @@ public class HomeController {
         return verificationTokenService.verifyEmail(code).getBody();
     }*/
 
+    }
+
+    @GetMapping("/orders/{id}")
+    public List getOrders(@PathVariable("id") int id)
+    {
+        System.out.println(orderService.getOrder(id));
+
+        return orderService.getOrder(id);
     }
 }

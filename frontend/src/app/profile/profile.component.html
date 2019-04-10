@@ -1,7 +1,10 @@
 <mat-grid-list cols="3" rowHeight="1:1" >
   <mat-grid-tile [colspan]="1">
 
-    <app-upload></app-upload>
+    <app-upload [(url)]=picurl [editmode]=editEnabled ></app-upload>
+    <label for="cbeditmode">Edit mode</label>
+    <input #cbeditmode id="cbeditmode" [checked]="editEnabled" (change)="editEnabled=cbeditmode.checked" type="checkbox">
+    <button class="button" (click)="clear()">Clear</button>
   </mat-grid-tile>
   <mat-grid-tile [colspan]="2" [ngStyle]="{'width' : '100%'}">
     <h2>Your orders</h2>

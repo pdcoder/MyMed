@@ -12,6 +12,7 @@ import {LoginService} from "../login.service";
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 import {DialogComponent} from "../dialog/dialog.component";
+import {Ng4LoadingSpinnerService} from "ng4-loading-spinner";
 
 @Component({
   selector: 'app-checkout',
@@ -30,7 +31,7 @@ export class CheckoutComponent implements OnInit {
   name: string;
   @ViewChild('totalsum') total: ElementRef;
 
-  constructor(public dialog: MatDialog,private authService : LoginService ,private cartService : CartService, private http : HttpClient, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+  constructor(public dialog: MatDialog,private authService : LoginService ,private cartService : CartService, private http : HttpClient, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,private spinnerService: Ng4LoadingSpinnerService) {
     iconRegistry.addSvgIcon(
       'plus',
       sanitizer.bypassSecurityTrustResourceUrl('../assets/images/plus.svg'));
@@ -46,7 +47,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   order() {
-    console.log((this.total.nativeElement.innerText).substr(1));
+    this.spinnerService.show();
     this.shoppingCartItems.map(_ => {
       this.names.push(_.name);
       this.qty.push(_.nmbr);
@@ -57,26 +58,32 @@ export class CheckoutComponent implements OnInit {
       sum: parseFloat((this.total.nativeElement.innerText).substr(1)),
       email: this.authService.getEmail()
     }).catch((error: Response) => {
+      this.spinnerService.hide();
       return Observable.throwError(new AppError(error))
     })
       .subscribe((response: ApiResponse) => {
         this.errors = response.message;
-        console.log(this.errors);
+        this.spinnerService.hide();
+
       });
   }
 
   addQty(id : number, qty : number)
   {
-    console.log(id+" "+qty);
+    this.spinnerService.show();
     this.cartService.incQty(id, qty);
     this.sum=0;
     this.shoppingCartItems$.subscribe(_ => this.shoppingCartItems = _);
     this.shoppingCartItems.map(_ => {
       this.sum += (_.price * _.nmbr) ;
     });
+    this.spinnerService.hide();
+
   }
   add(id : number)
   {
+    this.spinnerService.show();
+
     var qnt =  1;
     this.cartService.incQtyByOne(id);
     this.sum=0;
@@ -84,21 +91,25 @@ export class CheckoutComponent implements OnInit {
     this.shoppingCartItems.map(_ => {
       this.sum += (_.price * _.nmbr) ;
     });
-    console.log(this.shoppingCartItems);
+    this.spinnerService.hide();
   }
 
   remove(items : Medicine)
   {
+    this.spinnerService.show();
     this.cartService.remove(items);
     this.sum = 0;
     this.shoppingCartItems$.subscribe(_ => this.shoppingCartItems = _);
     this.shoppingCartItems.map(_ => {
       this.sum += (_.price * _.nmbr) ;
     });
+    this.spinnerService.hide();
+
   }
 
   sub(id : number)
   {
+    this.spinnerService.show();
     var qnt =  1;
     this.cartService.decQtyByOne(id);
     this.sum=0;
@@ -106,6 +117,7 @@ export class CheckoutComponent implements OnInit {
     this.shoppingCartItems.map(_ => {
       this.sum += (_.price * _.nmbr) ;
     });
+    this.spinnerService.hide();
   }
 
 

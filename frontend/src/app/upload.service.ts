@@ -1,13 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpRequest, HttpEvent} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {ProfileserviceService} from "./profile/profileservice.service";
+import {Ng4LoadingSpinnerService} from "ng4-loading-spinner";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UploadService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private spinnerService: Ng4LoadingSpinnerService) {}
 
   pushFileToStorage(file: File): Observable<HttpEvent<{}>> {
     let formdata: FormData = new FormData();
@@ -22,8 +24,8 @@ export class UploadService {
     return this.http.request(req);
   }
 
-  getFiles() {
-    return this.http.get('/api/getallfiles');
+  getFiles(id : number) {
+    return this.http.get(`/api/get/${id}`);
   }
 
 }
