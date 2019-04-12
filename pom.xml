@@ -113,13 +113,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>
         </dependency>
-
-
-        <dependency>
-            <groupId>com.geishatokyo.jetty.tests</groupId>
-            <artifactId>jetty-nosql-memcached-tests</artifactId>
-            <version>0.5.0</version>
-        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -145,6 +138,24 @@
                 <groupId>com.heroku.sdk</groupId>
                 <artifactId>heroku-maven-plugin</artifactId>
                 <version>2.0.8</version>
+            </plugin>
+            <plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>copy-resources</id>
+                    <phase>validate</phase>
+                    <goals><goal>copy-resources</goal></goals>
+                    <configuration>
+                        <outputDirectory>${build.directory}/classes/static/</outputDirectory >
+                        <resources>
+                            <resource>
+                                <directory>../demo2/frontend/dist</directory>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </execution>
+            </executions>
             </plugin>
         </plugins>
     </build>
